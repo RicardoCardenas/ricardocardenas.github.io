@@ -71,16 +71,36 @@ export interface ProjectCaseStudy {
   relatedProjectSlugs: string[];
 }
 
+export type CredentialType =
+  | 'professional-certification'
+  | 'language-accreditation'
+  | 'specialization'
+  | 'course-completion'
+  | 'in-progress';
+
+export type CredentialCategory =
+  | 'cloud'
+  | 'data-ai'
+  | 'security'
+  | 'methodology'
+  | 'language'
+  | 'software-engineering';
+
 export interface Certification {
   id: string;
-  title: string;
+  title: LocalizedString;
   issuer: string;
-  issueDate: string;
+  type: CredentialType;
+  typeLabel: LocalizedString;
+  category: CredentialCategory;
+  categoryLabel: LocalizedString;
+  issueDate?: string;
   expirationDate?: string;
   credentialId?: string;
   verificationUrl?: string;
-  category: 'cloud' | 'data-ai' | 'security' | 'methodology' | 'language';
-  isOfficialCertification: boolean;
+  skills?: string[];
+  description?: LocalizedString;
+  isFeatured?: boolean;
 }
 
 export interface CVDocument {

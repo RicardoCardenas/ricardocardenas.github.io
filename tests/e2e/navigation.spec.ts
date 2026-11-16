@@ -9,7 +9,7 @@ test.describe('Navegación e Interacción del Portafolio', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Ricardo Fernando Cardenas Minaya');
 
     // Navega al catálogo de proyectos
-    await page.getByRole('link', { name: /ver catálogo completo|view all projects/i }).click();
+    await page.getByRole('link', { name: /catálogo completo|view.*projects|ver los 8 proyectos/i }).first().click();
     await expect(page).toHaveURL(/\/projects$/);
 
     // Verifica que el catálogo muestre los proyectos verificados
