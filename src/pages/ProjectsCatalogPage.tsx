@@ -4,10 +4,10 @@ import { Link } from 'react-router-dom';
 import { verifiedProjects } from '../data/projects';
 import type { ProjectCategory } from '../types';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { Button, buttonVariants } from '../components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import { EmptyState } from '../components/ui/EmptyState';
-import { Search, ExternalLink, ShieldCheck, ArrowLeft, ArrowRight, X } from 'lucide-react';
+import { Search, ExternalLink, ShieldCheck, ArrowLeft, ArrowRight, X, Sparkles } from 'lucide-react';
 
 export function ProjectsCatalogPage() {
   const { i18n, t } = useTranslation('common');
@@ -63,6 +63,7 @@ export function ProjectsCatalogPage() {
       {/* Encabezado Editorial de Página */}
       <div className="space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-primary/20 bg-primary/5 text-primary text-xs font-semibold">
+          <Sparkles className="h-3 w-3 text-primary" />
           <span>{lang === 'es' ? 'Ingeniería de Software & Datos' : 'Software & Data Engineering'}</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-text-primary">
@@ -83,7 +84,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'all' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('all')}
-            className="text-xs h-9"
+            className="text-xs h-9 cursor-pointer"
           >
             {lang === 'es' ? 'Todos' : 'All'} ({categoryCounts.all})
           </Button>
@@ -92,7 +93,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'software-engineering' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('software-engineering')}
-            className="text-xs h-9"
+            className="text-xs h-9 cursor-pointer"
           >
             Software ({categoryCounts['software-engineering']})
           </Button>
@@ -101,7 +102,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'data-ai' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('data-ai')}
-            className="text-xs h-9"
+            className="text-xs h-9 cursor-pointer"
           >
             Data & AI ({categoryCounts['data-ai']})
           </Button>
@@ -110,7 +111,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'mobile' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('mobile')}
-            className="text-xs h-9"
+            className="text-xs h-9 cursor-pointer"
           >
             Mobile ({categoryCounts.mobile})
           </Button>
@@ -123,6 +124,11 @@ export function ProjectsCatalogPage() {
             type="text"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                setSearchQuery('');
+              }
+            }}
             placeholder={lang === 'es' ? 'Buscar tecnología, rol o título...' : 'Search stack, role or title...'}
             aria-label={lang === 'es' ? 'Buscar proyectos' : 'Search projects'}
             className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-lg bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
@@ -131,8 +137,8 @@ export function ProjectsCatalogPage() {
             <button
               type="button"
               onClick={() => setSearchQuery('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-text-muted hover:text-text-primary rounded-md"
-              aria-label="Limpiar búsqueda"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-text-muted hover:text-text-primary rounded-md cursor-pointer"
+              aria-label={lang === 'es' ? 'Limpiar búsqueda' : 'Clear search'}
             >
               <X className="h-3.5 w-3.5" />
             </button>
@@ -155,7 +161,7 @@ export function ProjectsCatalogPage() {
               setActiveCategory('all');
               setSearchQuery('');
             }}
-            className="text-primary hover:underline font-medium"
+            className="text-primary hover:underline font-medium cursor-pointer"
           >
             {lang === 'es' ? 'Restablecer filtros' : 'Reset all filters'}
           </button>
@@ -209,11 +215,21 @@ export function ProjectsCatalogPage() {
                 <p className="text-sm text-text-secondary leading-relaxed line-clamp-3">
                   {project.summary[lang]}
                 </p>
+
+                {/* Micro-métrica técnica destacada */}
+                {project.metrics && project.metrics.length > 0 ? (
+                  <div className="pt-1 flex items-center gap-2">
+                    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-muted text-xs font-mono font-medium text-text-primary border border-border/60">
+                      <span className="font-bold text-primary">{project.metrics[0].value}</span>
+                      <span className="text-text-muted text-[11px]">• {project.metrics[0].label[lang]}</span>
+                    </span>
+                  </div>
+                ) : null}
               </CardHeader>
 
               <CardContent className="space-y-3 pt-0">
                 <div className="flex flex-wrap gap-1.5">
-                  {project.technologies.slice(0, 6).map((tech) => (
+                  {project.technologies.slice(0, 4).map((tech) => (
                     <span
                       key={tech}
                       className="text-[11px] font-mono px-2 py-0.5 rounded-md bg-surface-muted text-text-secondary border border-border/50"
@@ -221,20 +237,21 @@ export function ProjectsCatalogPage() {
                       {tech}
                     </span>
                   ))}
-                  {project.technologies.length > 6 ? (
+                  {project.technologies.length > 4 ? (
                     <span className="text-[10px] text-text-muted self-center font-mono">
-                      +{project.technologies.length - 6}
+                      +{project.technologies.length - 4}
                     </span>
                   ) : null}
                 </div>
               </CardContent>
 
               <CardFooter className="pt-3 border-t border-border/60 flex items-center justify-between">
-                <Link to={`/projects/${project.slug}`}>
-                  <Button variant="ghost" size="sm" className="gap-1.5 p-0 text-primary text-xs hover:text-primary-hover font-medium">
-                    <span>{t('actions.viewCaseStudy')}</span>
-                    <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150" />
-                  </Button>
+                <Link
+                  to={`/projects/${project.slug}`}
+                  className="inline-flex items-center gap-1.5 text-primary text-xs hover:text-primary-hover font-medium cursor-pointer"
+                >
+                  <span>{t('actions.viewCaseStudy')}</span>
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150" />
                 </Link>
 
                 {project.links.github ? (
@@ -243,11 +260,10 @@ export function ProjectsCatalogPage() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`GitHub - ${project.title}`}
+                    className={buttonVariants({ variant: 'outline', size: 'sm', className: 'gap-1 text-xs h-8 cursor-pointer' })}
                   >
-                    <Button variant="outline" size="sm" className="gap-1 text-xs h-8">
-                      <span>GitHub</span>
-                      <ExternalLink className="h-3 w-3" />
-                    </Button>
+                    <span>GitHub</span>
+                    <ExternalLink className="h-3 w-3" />
                   </a>
                 ) : project.isPrivateCode ? (
                   <div

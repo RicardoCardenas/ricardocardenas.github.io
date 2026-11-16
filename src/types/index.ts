@@ -24,16 +24,29 @@ export interface LocalizedArray {
   en: string[];
 }
 
+export type ComponentStatus = 'implemented' | 'in-development' | 'planned';
+
 export interface ArchitectureComponent {
   name: string;
   role: LocalizedString;
   technology: string;
+  status: ComponentStatus;
 }
 
 export interface TechnicalDecision {
   title: LocalizedString;
   decision: LocalizedString;
   tradeoff: LocalizedString;
+}
+
+export type MetricCategory = 'functional' | 'testing' | 'architecture' | 'data';
+
+export interface ProjectMetric {
+  value: string;
+  label: LocalizedString;
+  description?: LocalizedString;
+  category: MetricCategory;
+  verifiedSource?: string;
 }
 
 export interface ProjectCaseStudy {
@@ -62,6 +75,7 @@ export interface ProjectCaseStudy {
   architectureOverview?: LocalizedString;
   architectureComponents?: ArchitectureComponent[];
   keyDecisions?: TechnicalDecision[];
+  metrics?: ProjectMetric[];
   metricsAndResults?: LocalizedArray;
   challengesAndLearnings?: LocalizedArray;
 

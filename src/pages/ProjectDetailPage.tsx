@@ -3,8 +3,12 @@ import { useTranslation } from 'react-i18next';
 import { verifiedProjects } from '../data/projects';
 import { NotFoundPage } from './NotFoundPage';
 import { Badge } from '../components/ui/Badge';
-import { Button } from '../components/ui/Button';
+import { buttonVariants } from '../components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent } from '../components/ui/Card';
+import { ArchitectureDiagram } from '../components/projects/ArchitectureDiagram';
+import { MetricsBanner } from '../components/projects/MetricsBanner';
+import { KeyDecisionsCard } from '../components/projects/KeyDecisionsCard';
+import { ProjectGallery } from '../components/projects/ProjectGallery';
 import {
   ArrowLeft,
   ExternalLink,
@@ -14,6 +18,7 @@ import {
   Layers,
   Sparkles,
   Info,
+  Lightbulb,
 } from 'lucide-react';
 
 export function ProjectDetailPage() {
@@ -35,12 +40,12 @@ export function ProjectDetailPage() {
     <div className="py-8 sm:py-12 max-w-5xl mx-auto px-4 sm:px-6 space-y-10">
       {/* 1. Breadcrumbs Semánticos */}
       <nav className="flex items-center gap-2 text-xs text-text-muted" aria-label="Breadcrumb">
-        <Link to="/" className="hover:text-text-primary transition-colors flex items-center gap-1">
+        <Link to="/" className="hover:text-text-primary transition-colors flex items-center gap-1 cursor-pointer">
           <ArrowLeft className="h-3 w-3" />
           <span>{lang === 'es' ? 'Inicio' : 'Home'}</span>
         </Link>
         <span>/</span>
-        <Link to="/projects" className="hover:text-text-primary transition-colors">
+        <Link to="/projects" className="hover:text-text-primary transition-colors cursor-pointer">
           {lang === 'es' ? 'Catálogo de Proyectos' : 'Projects Catalog'}
         </Link>
         <span>/</span>
@@ -79,11 +84,14 @@ export function ProjectDetailPage() {
         {/* Acciones de Cabecera */}
         <div className="flex flex-wrap items-center gap-3 pt-2">
           {project.links.github ? (
-            <a href={project.links.github} target="_blank" rel="noopener noreferrer">
-              <Button variant="primary" size="md" className="gap-2 shadow-xs">
-                <ExternalLink className="h-4 w-4" />
-                <span>{lang === 'es' ? 'Ver Repositorio en GitHub' : 'View on GitHub'}</span>
-              </Button>
+            <a
+              href={project.links.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={buttonVariants({ variant: 'primary', size: 'md', className: 'gap-2 shadow-xs cursor-pointer' })}
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span>{lang === 'es' ? 'Ver Repositorio en GitHub' : 'View on GitHub'}</span>
             </a>
           ) : project.isPrivateCode ? (
             <div className="text-xs text-text-muted italic flex items-center gap-2 px-3.5 py-2 rounded-lg border border-border bg-surface shadow-2xs">
@@ -96,18 +104,19 @@ export function ProjectDetailPage() {
             </div>
           ) : null}
 
-          <Link to="/projects">
-            <Button variant="outline" size="md" className="gap-2">
-              <ArrowLeft className="h-4 w-4" />
-              <span>{lang === 'es' ? 'Volver al catálogo' : 'Back to catalog'}</span>
-            </Button>
+          <Link
+            to="/projects"
+            className={buttonVariants({ variant: 'outline', size: 'md', className: 'gap-2 cursor-pointer' })}
+          >
+            <ArrowLeft className="h-4 w-4" />
+            <span>{lang === 'es' ? 'Volver al catálogo' : 'Back to catalog'}</span>
           </Link>
         </div>
       </div>
 
       {/* 3. Banner Informativo de Confidencialidad (si aplica a Nexo) */}
       {project.isAcademicThesis ? (
-        <div className="rounded-xl border border-primary/25 bg-primary/5 p-4 sm:p-5 flex items-start gap-3.5">
+        <div className="rounded-xl border border-primary/25 bg-primary/5 p-4 sm:p-5 flex items-start gap-3.5 shadow-2xs">
           <Info className="h-5 w-5 text-primary shrink-0 mt-0.5" />
           <div className="space-y-1 text-xs sm:text-sm text-text-secondary leading-relaxed">
             <p className="font-semibold text-text-primary">
@@ -122,7 +131,12 @@ export function ProjectDetailPage() {
         </div>
       ) : null}
 
-      {/* 4. Ficha Técnica de Rol y Contribuciones Personales */}
+      {/* 4. Métricas Clave de Ingeniería */}
+      {project.metrics && project.metrics.length > 0 ? (
+        <MetricsBanner metrics={project.metrics} lang={lang} />
+      ) : null}
+
+      {/* 5. Ficha Técnica de Rol y Contribuciones Personales */}
       <Card className="border-primary/20">
         <CardHeader className="space-y-1">
           <div className="flex items-center gap-2 text-primary">
@@ -147,7 +161,7 @@ export function ProjectDetailPage() {
         </CardContent>
       </Card>
 
-      {/* 5. Problema de Negocio y Solución Propuesta */}
+      {/* 6. Problema de Negocio y Solución Propuesta */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
@@ -172,7 +186,17 @@ export function ProjectDetailPage() {
         </Card>
       </div>
 
-      {/* 6. Desglose Transparente: Implementado vs Planificado */}
+      {/* 7. Arquitectura del Sistema y Diagrama de Componentes */}
+      {project.architectureOverview && project.architectureComponents ? (
+        <ArchitectureDiagram
+          projectId={project.id}
+          overview={project.architectureOverview[lang]}
+          components={project.architectureComponents}
+          lang={lang}
+        />
+      ) : null}
+
+      {/* 8. Desglose Transparente: Implementado vs Planificado */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <Card className="border-success/20">
           <CardHeader>
@@ -219,7 +243,41 @@ export function ProjectDetailPage() {
         ) : null}
       </div>
 
-      {/* 7. Pila Tecnológica Verificada */}
+      {/* 9. Decisiones de Arquitectura Relevantes (ADRs) */}
+      {project.keyDecisions && project.keyDecisions.length > 0 ? (
+        <KeyDecisionsCard decisions={project.keyDecisions} lang={lang} />
+      ) : null}
+
+      {/* 10. Evidencia Visual y Galería */}
+      {project.galleryImages && project.galleryImages.length > 0 ? (
+        <ProjectGallery images={project.galleryImages} title={project.title} lang={lang} />
+      ) : null}
+
+      {/* 11. Retos y Aprendizajes de Ingeniería */}
+      {project.challengesAndLearnings ? (
+        <Card className="border-border">
+          <CardHeader className="space-y-1">
+            <div className="flex items-center gap-2 text-primary">
+              <Lightbulb className="h-5 w-5" />
+              <CardTitle className="text-base sm:text-lg">
+                {lang === 'es' ? 'Retos de Ingeniería & Aprendizajes Clave' : 'Engineering Challenges & Key Learnings'}
+              </CardTitle>
+            </div>
+          </CardHeader>
+          <CardContent>
+            <ul className="space-y-2 text-sm text-text-secondary">
+              {project.challengesAndLearnings[lang].map((ch, i) => (
+                <li key={i} className="flex items-start gap-2">
+                  <span className="text-primary font-bold mt-0.5">•</span>
+                  <span>{ch}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      ) : null}
+
+      {/* 12. Pila Tecnológica Verificada */}
       <div className="space-y-3 pt-2">
         <div className="flex items-center gap-2 text-text-primary">
           <Sparkles className="h-4 w-4 text-primary" />
@@ -236,7 +294,7 @@ export function ProjectDetailPage() {
         </div>
       </div>
 
-      {/* 8. Proyectos Relacionados para Navegación Cruzada */}
+      {/* 13. Proyectos Relacionados para Navegación Cruzada */}
       {relatedProjects.length > 0 ? (
         <div className="space-y-4 pt-8 border-t border-border">
           <h3 className="text-lg font-bold text-text-primary">
@@ -252,11 +310,12 @@ export function ProjectDetailPage() {
                   </p>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <Link to={`/projects/${rel.slug}`}>
-                    <Button variant="ghost" size="sm" className="p-0 text-primary text-xs hover:text-primary-hover font-medium">
-                      <span>{lang === 'es' ? 'Ver caso de estudio' : 'Read case study'}</span>
-                      <span className="ml-1">&rarr;</span>
-                    </Button>
+                  <Link
+                    to={`/projects/${rel.slug}`}
+                    className="inline-flex items-center gap-1 text-primary text-xs hover:text-primary-hover font-medium cursor-pointer"
+                  >
+                    <span>{lang === 'es' ? 'Ver caso de estudio' : 'Read case study'}</span>
+                    <span className="ml-1">&rarr;</span>
                   </Link>
                 </CardContent>
               </Card>
@@ -265,13 +324,14 @@ export function ProjectDetailPage() {
         </div>
       ) : null}
 
-      {/* 9. Botón Inferior de Retorno */}
+      {/* 14. Botón Inferior de Retorno */}
       <div className="pt-6 border-t border-border flex justify-between items-center">
-        <Link to="/projects">
-          <Button variant="outline" size="sm" className="gap-2 text-xs">
-            <ArrowLeft className="h-3.5 w-3.5" />
-            <span>{lang === 'es' ? 'Volver al catálogo completo' : 'Back to projects catalog'}</span>
-          </Button>
+        <Link
+          to="/projects"
+          className={buttonVariants({ variant: 'outline', size: 'sm', className: 'gap-2 text-xs cursor-pointer' })}
+        >
+          <ArrowLeft className="h-3.5 w-3.5" />
+          <span>{lang === 'es' ? 'Volver al catálogo completo' : 'Back to projects catalog'}</span>
         </Link>
       </div>
     </div>
