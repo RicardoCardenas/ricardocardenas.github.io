@@ -13,7 +13,8 @@ export interface MobileNavSheetProps {
 
 export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
   const [open, setOpen] = React.useState(false);
-  const { t } = useTranslation('common');
+  const { t, i18n } = useTranslation('common');
+  const lang = i18n.language && i18n.language.startsWith('en') ? 'en' : 'es';
   const location = useLocation();
 
   const handleLinkClick = () => {
@@ -26,7 +27,7 @@ export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
         <Button
           variant="ghost"
           size="icon"
-          aria-label="Abrir menú de navegación"
+          aria-label={lang === 'es' ? 'Abrir menú de navegación' : 'Open navigation menu'}
           className="md:hidden text-text-primary"
         >
           <Menu className="h-5 w-5" />
@@ -42,7 +43,11 @@ export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
                 Ricardo Cardenas
               </span>
               <Dialog.Close asChild>
-                <Button variant="ghost" size="icon" aria-label="Cerrar menú">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={lang === 'es' ? 'Cerrar menú' : 'Close menu'}
+                >
                   <X className="h-5 w-5 text-text-muted hover:text-text-primary" />
                 </Button>
               </Dialog.Close>

@@ -24,7 +24,7 @@ export function Navbar() {
         <Link
           to="/"
           className="flex items-center gap-2 group cursor-pointer focus-visible:outline-2 focus-visible:outline-focus rounded-md"
-          aria-label="Ricardo Cardenas - Inicio"
+          aria-label={`Ricardo Cardenas - ${t('home')}`}
         >
           <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-sm tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
             RC

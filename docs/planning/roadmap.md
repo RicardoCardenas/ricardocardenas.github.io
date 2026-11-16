@@ -55,32 +55,29 @@ El desarrollo y puesta en producción del portafolio profesional de Ricardo Card
 
 ---
 
-### FASE 2: Implementación de Vistas, Secciones y Casos de Estudio
-- **Objetivo:** Construir la interfaz de usuario completa y poblar los datos inmutables verificados.
-- **Tareas detalladas:**
-  1. Implementar `AppLayout`, `Navbar` fija con blur y `Footer` con enlaces a LinkedIn y GitHub.
-  2. Desarrollar `MobileNavSheet` con drawer accesible y áreas táctiles de 48px.
-  3. Implementar secciones de la Home (`HeroSection`, `AboutSection`, `SkillsSection`, `EducationSection`, `CVSection`, `ContactSection`).
-  4. Construir `FeaturedProjectsSection` con las tarjetas interactivas de los 4 proyectos principales.
-  5. Desarrollar la vista de catálogo `/projects` con filtros multi-categoría reactivos, búsqueda debounced y `EmptyState`.
-  6. Desarrollar la vista dinámica `/projects/:slug` con formato completo de caso de estudio (problema, solución, arquitectura, contribuciones, código).
-  7. Incorporar módulo de descarga de currículums con las dos opciones (`CV Software Engineering` y `CV Data & AI`).
-  8. Desarrollar vista 404 personalizada (`NotFoundPage`).
-- **Criterio de salida:** Todas las rutas operativas, diseño idéntico a las especificaciones y navegación bilingüe fluida.
+### FASE 2: Implementación de Vistas, Secciones, Catálogo y Rediseño Visual (Fase 2C)
+- **Objetivo:** Construir la interfaz de usuario completa, poblar los datos inmutables verificados y alinear el diseño con el mockup editorial aprobado Minimalista Profesional (B).
+- **Sub-fases ejecutadas:**
+  - [x] **Fase 2A:** Implementación de Home funcional, certificaciones y contacto (`feat: complete phase 2a homepage visual implementation` - `cdf1bb2`).
+  - [x] **Fase 2B:** Catálogo de proyectos (`/projects`) y páginas de detalle (`/projects/:slug`) con evidencia verificada (`feat: complete phase 2b projects catalog and case studies` - `ed9ef47`).
+  - [x] **Fase 2C.1:** Auditoría de fidelidad visual contra mockup de referencia aprobado y plan de rediseño.
+  - [x] **Fase 2C.2:** Rediseño visual de la Home con layout editorial de dos columnas, monograma RC, gráfico conceptual y métricas honestas (`feat: complete phase 2c2 homepage visual redesign` - `a6d1124`).
+  - [x] **Fase 2C.3:** Refinamiento visual del catálogo y casos de estudio, `ProjectCoverGraphic` con capturas reales y topología abstracta de Nexo, lightbox modal accesible (`feat: complete phase 2c3 projects visual refinement` - `bb7793a`).
+  - [x] **Fase 2C.4:** Integración transversal, auditoría de contenido/CVs, i18n, accesibilidad de teclado y Quality Gate final (En verificación).
+- **Criterio de salida:** Todas las vistas operativas, consistencia estética transversal, cero regresiones y 100% de quality gates aprobados.
 
 ---
 
-### FASE 3: Aseguramiento de Calidad, Pruebas Automatizadas y Auditorías
-- **Objetivo:** Validar rigurosamente el software contra los criterios de aceptación y estándares WCAG.
-- **Tareas detalladas:**
-  1. Configurar Vitest y React Testing Library.
-  2. Implementar pruebas unitarias de utilidades, filtrado de proyectos y modelos de datos.
-  3. Implementar pruebas de componentes (`Navbar`, `ProjectCard`, `ThemeToggle`, `LanguageToggle`).
-  4. Configurar suite E2E con Playwright para flujos críticos en desktop y emulación móvil (iPhone).
-  5. Ejecutar auditoría automatizada con `@axe-core/playwright` para validar conformidad WCAG 2.2 AA.
-  6. Ejecutar pruebas de estrés de interfaz (`break-ui`) con cadenas largas y zooms de pantalla al 200%.
-  7. Auditar Core Web Vitals en Lighthouse (Performance $\ge 90$, Accessibility $\ge 95$, SEO $\ge 95$).
-- **Criterio de salida:** 100% de pruebas unitarias y E2E aprobadas con evidencia ejecutable registrada.
+### FASE 3: Auditoría Integral de UX/UI, Usabilidad, Accesibilidad y Optimización
+- **Objetivo:** Ejecutar una auditoría exhaustiva de ingeniería de interfaces, experiencia de usuario, usabilidad real, accesibilidad WCAG 2.2 AA y optimización de rendimiento/SEO antes del despliegue en producción.
+- **Plan detallado:** [docs/planning/phase-3-audit-and-optimization-plan.md](file:///C:/Ricardo/Portafolio/docs/planning/phase-3-audit-and-optimization-plan.md).
+- **Bloques obligatorios:**
+  1. **3.1. Evaluación Heurística:** Aplicación rigurosa de las 10 heurísticas de usabilidad de Jakob Nielsen en todas las rutas y componentes interactivos; documentación de severidad (0-4), evidencias y propuestas de solución.
+  2. **3.2. Auditoría UX/UI & Anti-AI-Slop:** Evaluación de arquitectura de información, jerarquía tipográfica, consistencia con el Design System (Minimalista Profesional B), affordances, microinteracciones discretas (`emil-design-eng`), feedback de estados, reducción de carga cognitiva, usabilidad móvil y detección/eliminación de patrones genéricos o innecesarios.
+  3. **3.3. Accesibilidad WCAG 2.2 AA:** Pruebas automatizadas con `@axe-core/playwright` y revisión manual rigurosa de navegación por teclado, focus trap en modales, restauración de foco, contraste de color, soporte para lectores de pantalla, zoom al 200%, reflow sin pérdida de información y `prefers-reduced-motion`.
+  4. **3.4. SEO Técnico y Rendimiento:** Auditoría de Core Web Vitals (LCP, INP, CLS) con Lighthouse, compresión y formatos modernos de imágenes/activos, metadatos dinámicos por proyecto, Open Graph, Twitter Cards, `sitemap.xml`, `robots.txt` y estrategia de prerenderizado para SPA.
+  5. **3.5. Refinamiento, Backlog y Validación:** Corrección priorizada de hallazgos según impacto/esfuerzo, suite de pruebas de regresión automatizadas, capturas antes/después y definición de protocolo de pruebas de usabilidad guiadas con participantes (sin afirmar validación con usuarios a menos que hayan sido ejecutadas efectivamente).
+- **Criterio de salida:** Informes completos generados, backlog de severidad 3 y 4 subsanado al 100%, puntuaciones Lighthouse $\ge 95$ en Accesibilidad y SEO, $\ge 90$ en Performance, y conformidad verificada WCAG 2.2 AA.
 
 ---
 

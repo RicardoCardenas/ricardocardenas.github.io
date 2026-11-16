@@ -63,7 +63,7 @@ export function EducationSection({ lang }: EducationSectionProps) {
               {verifiedProfile.university.distinction[lang]}
             </Badge>
             <Badge variant="outline" className="text-xs">
-              {verifiedProfile.university.currentSemester} • {verifiedProfile.university.period}
+              {lang === 'es' ? 'Pregrado' : 'Undergraduate'} • {verifiedProfile.university.period}
             </Badge>
           </div>
         </div>

@@ -125,7 +125,7 @@ export function AboutSection({ lang }: AboutSectionProps) {
                   {verifiedProfile.university.name}
                 </p>
                 <p className="text-[11px] text-text-secondary">
-                  {verifiedProfile.university.program[lang]} ({verifiedProfile.university.currentSemester})
+                  {verifiedProfile.university.program[lang]}
                 </p>
               </div>
               <div className="pt-1 text-[11px] text-text-muted flex items-center gap-1.5">

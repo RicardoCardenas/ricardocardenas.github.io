@@ -32,7 +32,7 @@ export function HeroSection({ lang }: HeroSectionProps) {
 
             <Badge variant="outline" className="gap-1.5 text-xs text-text-secondary font-medium py-1 px-3">
               <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
-              <span>UPC • {verifiedProfile.university.currentSemester} • {lang === 'es' ? 'Ingeniería de Software' : 'Software Engineering'}</span>
+              <span>UPC • {lang === 'es' ? 'Ingeniería de Software' : 'Software Engineering'} • {lang === 'es' ? 'Décimo Superior' : 'Top 10%'}</span>
             </Badge>
           </div>
 
@@ -59,8 +59,8 @@ export function HeroSection({ lang }: HeroSectionProps) {
           <div className="max-w-2xl space-y-3">
             <p className="text-base sm:text-lg text-text-secondary leading-relaxed font-normal">
               {lang === 'es'
-                ? 'Estudiante de 8.º ciclo de Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC), perteneciente al Décimo Superior. Diseña e implementa arquitecturas modulares, microservicios empresariales, persistencia políglota y soluciones basadas en datos e inteligencia artificial verificable.'
-                : '8th-semester Software Engineering student at Universidad Peruana de Ciencias Aplicadas (UPC), Top 10% academic standing. Focused on modular architectures, enterprise microservices, polyglot persistence, and data-driven verifiable AI systems.'}
+                ? 'Estudiante de Ingeniería de Software en la Universidad Peruana de Ciencias Aplicadas (UPC), perteneciente al Décimo Superior. Diseña e implementa arquitecturas modulares, microservicios empresariales, persistencia políglota y soluciones basadas en datos e inteligencia artificial verificable.'
+                : 'Software Engineering student at Universidad Peruana de Ciencias Aplicadas (UPC), Top 10% academic standing. Focused on modular architectures, enterprise microservices, polyglot persistence, and data-driven verifiable AI systems.'}
             </p>
           </div>
 

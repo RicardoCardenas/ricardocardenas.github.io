@@ -8,8 +8,8 @@ export const verifiedProfile: ProfessionalProfile = {
     en: 'Software Engineering | Backend • DDD Architecture • Cloud & Data',
   },
   headline: {
-    es: 'Estudiante de 8.º ciclo de Ingeniería de Software en la UPC (Décimo Superior). Especializado en diseño de microservicios, APIs REST, pipelines de datos y arquitecturas modulares con IA verificable.',
-    en: '8th-semester Software Engineering student at UPC (Top 10%). Focused on microservices design, REST APIs, cloud data pipelines, and modular architectures with verifiable AI.',
+    es: 'Estudiante de Ingeniería de Software en la UPC (Décimo Superior). Especializado en diseño de microservicios, APIs REST, pipelines de datos y arquitecturas modulares con IA verificable.',
+    en: 'Software Engineering student at UPC (Top 10%). Focused on microservices design, REST APIs, cloud data pipelines, and modular architectures with verifiable AI.',
   },
   location: 'Lima, Perú',
   university: {
@@ -19,7 +19,7 @@ export const verifiedProfile: ProfessionalProfile = {
       en: 'Software Engineering',
     },
     period: 'Mar 2023 - Dic 2027',
-    currentSemester: '8.º Ciclo',
+    currentSemester: 'Pregrado',
     distinction: {
       es: 'Décimo Superior',
       en: 'Top 10% (Décimo Superior)',

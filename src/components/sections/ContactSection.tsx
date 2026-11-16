@@ -110,7 +110,7 @@ export function ContactSection({ lang }: ContactSectionProps) {
               <Github className="h-5 w-5" />
             </div>
             <CardTitle className="text-base text-text-primary">
-              GitHub & Ubicación
+              {lang === 'es' ? 'GitHub y Ubicación' : 'GitHub & Location'}
             </CardTitle>
             <p className="text-xs text-text-muted flex items-center gap-1">
               <MapPin className="h-3 w-3 text-primary" />
