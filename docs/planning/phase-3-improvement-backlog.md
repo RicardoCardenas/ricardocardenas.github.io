@@ -2,13 +2,15 @@
 ## Usabilidad, Experiencia de Usuario y Refinamiento de Interfaces
 
 **Documento:** BACKLOG-FASE-3-001  
-**Versión:** 1.0.0  
+**Versión:** 1.1.0  
 **Fecha:** 16 de noviembre de 2026  
-**Origen:** Derivado de la Auditoría Heurística (Fase 3.1), Recorridos de Usuario y Revisión UX/UI  
-**Estado:** ✅ **FASE 3.2 IMPLEMENTADA Y VERIFICADA (9/9 tareas completadas: 8 UX + 1 A11Y)**  
+**Origen:** Derivado de la Auditoría Heurística (Fase 3.1), Recorridos de Usuario, Revisión UX/UI (Fase 3.2) y Auditoría de Accesibilidad WCAG 2.2 AA (Fase 3.3)  
+**Estado:** ✅ **FASE 3.3 IMPLEMENTADA Y VERIFICADA (0 infracciones axe-core, 16 suites E2E, 8/8 pruebas de interacción y teclado)**  
 
 > [!NOTE]
-> **Conciliación de alcance (9 tareas de Fase 3.1):** La Fase 3.1 registró 9 tareas discretas (8 con prefijo UX: UX-01 a UX-08, más 1 de accesibilidad: A11Y-01). En el resumen narrativo inicial de Fase 3.2, UX-03, UX-05 y UX-06 se agruparon temáticamente bajo 'Microinteracciones físicas y táctiles', originando 8 secciones temáticas. Las 9 tareas individuales están plenamente implementadas y verificadas con pruebas automatizadas.
+> **Conciliación de alcance (Fase 3.2 y Fase 3.3):**
+> - La Fase 3.2 completó las 9 tareas de usabilidad (UX-01 a UX-08 y A11Y-01).
+> - La Fase 3.3 resolvió 8 barreras críticas de accesibilidad WCAG 2.2 AA (A11Y-02 a A11Y-09), incorporando la suite automatizada `@axe-core/playwright` y alcanzando plena conformidad sin infracciones residuales.
 
 ---
 
@@ -38,6 +40,14 @@ El backlog consolida todos los hallazgos técnicos y de diseño obtenidos en la 
 | **UX-06** | **P2 (Media)** | 1 | `MobileNavSheet.tsx` | Respuesta táctil visual inmediata al tocar enlaces en dispositivos móviles (`active:bg-surface-muted/80`) | ✅ **Completado** | Fase 3.2 (Verificado en mobile viewports) |
 | **UX-07** | **P3 (Baja)** | 1 | `ProjectsCatalogPage.tsx` | Atajo de teclado global (`/`) para enfocar instantáneamente el campo de búsqueda | ✅ **Completado** | Fase 3.2 (`ProjectsCatalogPage.test.tsx`, E2E test) |
 | **UX-08** | **P3 (Baja)** | 1 | `HeroSection.tsx` | Optimización de espaciado vertical (`gap-2 sm:gap-2.5`, `text-[11px] sm:text-xs`) para badges en <360px | ✅ **Completado** | Fase 3.2 (Verificado en viewport 320px) |
+| **A11Y-02** | **P1 (Alta)** | 2 | `tokens.css`, `SkillsSection.tsx` | Corrección de contrastes cromáticos en texto atenuado (`--text-muted`, `--text-secondary`, badges éxito/alerta) para superar ratio 4.5:1 en Light y Dark | ✅ **Completado** | Fase 3.3 (16 escaneos axe-core, 0 violaciones) |
+| **A11Y-03** | **P1 (Alta)** | 2 | `Navbar.tsx` | Corrección de discrepancia *Label in Name* (WCAG 2.5.3) en el enlace de logotipo ("RC Ricardo Cardenas") | ✅ **Completado** | Fase 3.3 (axe-core test & Playwright) |
+| **A11Y-04** | **P1 (Alta)** | 2 | `ProjectsCatalogPage.tsx`, `ContactSection.tsx` | Dimensionamiento de objetivos táctiles mínimos de 24×24px (WCAG 2.2 SC 2.5.8) en botón `X` y enlaces | ✅ **Completado** | Fase 3.3 (`accessibility-interaction.spec.ts`) |
+| **A11Y-05** | **P1 (Alta)** | 2 | `ProjectsCatalogPage.tsx` | Región en vivo ARIA (`role="status" aria-live="polite" aria-atomic="true"`) para anuncios de resultados de búsqueda | ✅ **Completado** | Fase 3.3 (`accessibility-interaction.spec.ts`) |
+| **A11Y-06** | **P1 (Alta)** | 2 | `MobileNavSheet.tsx` | Incorporación de `Dialog.Title` y `Dialog.Description` accesibles en cajón de navegación Radix UI | ✅ **Completado** | Fase 3.3 (axe-core Drawer Scan) |
+| **A11Y-07** | **P2 (Media)** | 1 | `AppLayout.tsx` | Localización dinámica del enlace para saltar al contenido principal en español e inglés | ✅ **Completado** | Fase 3.3 (`accessibility-interaction.spec.ts`) |
+| **A11Y-08** | **P1 (Alta)** | 2 | `CVSection.tsx`, `ContactSection.tsx` | Eliminación de anidamiento interactivo inválido `<a ...><Button>...</a>` en favor de `buttonVariants` en `<a>` | ✅ **Completado** | Fase 3.3 (W3C HTML5 validator / axe-core) |
+| **A11Y-09** | **P2 (Media)** | 1 | `HeroArchitectureGraphic.tsx`, `ProjectCoverGraphic.tsx` | Declaración explícita de `role="img"` y `aria-label` descriptivo en diagramas e ilustraciones | ✅ **Completado** | Fase 3.3 (axe-core Scans) |
 
 ---
 
@@ -177,8 +187,8 @@ flowchart TD
         A11Y01["A11Y-01: prefers-reduced-motion preventivo ✅"]
     end
 
-    subgraph FASE_3_3["Fase 3.3: Auditoría y Refinamiento WCAG 2.2 AA (PENDIENTE)"]
-        A11Y_AUDIT["Auditoría completa de contraste, lectores de pantalla, focus trapping y teclado"]
+    subgraph FASE_3_3["Fase 3.3: Auditoría y Refinamiento WCAG 2.2 AA (COMPLETADO)"]
+        A11Y_AUDIT["A11Y-02 a 09: Contraste, Focus Trapping, Teclado, Label-in-Name & axe-core ✅"]
     end
 
     subgraph FASE_3_4["Fase 3.4: Optimización de Rendimiento y Core Web Vitals (PENDIENTE)"]
@@ -189,4 +199,4 @@ flowchart TD
     FASE_3_3 --> FASE_3_4
 ```
 
-Todas las mejoras de usabilidad y microinteracción programadas para la Fase 3.2 han sido implementadas, integradas y verificadas con éxito en el Quality Gate técnico (TypeScript, ESLint, Vitest y Playwright E2E).
+Todas las mejoras de usabilidad (Fase 3.2) y refinamiento de accesibilidad WCAG 2.2 AA (Fase 3.3) han sido implementadas, integradas y verificadas con éxito en el Quality Gate técnico (TypeScript, ESLint, Vitest y 100% pruebas Playwright E2E aprobadas en escritorio y móvil).

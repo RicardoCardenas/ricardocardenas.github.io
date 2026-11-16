@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Mail, Linkedin, Github, Phone, MapPin, Check, Copy } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Card, CardHeader, CardTitle, CardContent } from '../ui/Card';
-import { Button } from '../ui/Button';
+import { Button, buttonVariants } from '../ui/Button';
 import { verifiedProfile } from '../../data/profile';
 
 export interface ContactSectionProps {
@@ -47,7 +47,7 @@ export function ContactSection({ lang }: ContactSectionProps) {
           <CardContent className="space-y-3 pt-0">
             <a
               href={`mailto:${verifiedProfile.contacts.email}`}
-              className="text-xs font-mono text-primary font-semibold hover:underline break-all"
+              className="text-xs font-mono text-primary font-semibold hover:underline break-all inline-flex items-center min-h-[28px] py-1"
             >
               {verifiedProfile.contacts.email}
             </a>
@@ -94,11 +94,9 @@ export function ContactSection({ lang }: ContactSectionProps) {
               href={verifiedProfile.contacts.linkedin}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className={buttonVariants({ variant: 'outline', size: 'sm', className: 'w-full text-xs cursor-pointer' })}
             >
-              <Button variant="outline" size="sm" className="w-full text-xs">
-                <span>{lang === 'es' ? 'Ver perfil en LinkedIn' : 'View LinkedIn Profile'}</span>
-              </Button>
+              <span>{lang === 'es' ? 'Ver perfil en LinkedIn' : 'View LinkedIn Profile'}</span>
             </a>
           </CardContent>
         </Card>
@@ -128,11 +126,9 @@ export function ContactSection({ lang }: ContactSectionProps) {
               href={verifiedProfile.contacts.github}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className={buttonVariants({ variant: 'outline', size: 'sm', className: 'w-full text-xs cursor-pointer' })}
             >
-              <Button variant="outline" size="sm" className="w-full text-xs">
-                <span>{lang === 'es' ? 'Ver repositorios en GitHub' : 'View GitHub Repositories'}</span>
-              </Button>
+              <span>{lang === 'es' ? 'Ver repositorios en GitHub' : 'View GitHub Repositories'}</span>
             </a>
           </CardContent>
         </Card>

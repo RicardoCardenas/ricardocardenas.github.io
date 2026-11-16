@@ -8,8 +8,8 @@
 
   /* Tipografía */
   --text-primary: #0f172a;     /* Ratio 15.6:1 AAA */
-  --text-secondary: #475569;   /* Ratio 5.9:1 AA */
-  --text-muted: #64748b;       /* Ratio 4.6:1 AA */
+  --text-secondary: #334155;   /* Ratio 8.9:1 AAA */
+  --text-muted: #475569;       /* Ratio 5.9:1 AA */
 
   /* Identidad Violeta */
   --primary: #7c3aed;          /* Violet 600 - Ratio 4.6:1 AA */
@@ -21,8 +21,8 @@
   /* Estados y Feedback */
   --focus: #7c3aed;
   --ring: rgba(124, 58, 237, 0.35);
-  --success: #16a34a;
-  --warning: #d97706;
+  --success: #166534;          /* Ratio 5.5:1 AA */
+  --warning: #92400e;          /* Ratio 6.0:1 AA */
   --error: #dc2626;
 }
 
@@ -36,8 +36,8 @@
 
   /* Tipografía */
   --text-primary: #f4f4f5;     /* Ratio 16.8:1 AAA */
-  --text-secondary: #a1a1aa;   /* Ratio 7.2:1 AAA */
-  --text-muted: #71717a;       /* Ratio 4.6:1 AA */
+  --text-secondary: #cbd5e1;   /* Ratio 10.5:1 AAA */
+  --text-muted: #94a3b8;       /* Ratio 7.1:1 AAA / AA */
 
   /* Identidad Violeta */
   --primary: #a78bfa;          /* Violet 400 - Ratio 8.5:1 AAA */

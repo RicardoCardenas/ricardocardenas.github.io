@@ -18,6 +18,7 @@ export function HeroArchitectureGraphic({
 }: HeroArchitectureGraphicProps) {
   return (
     <div
+      role="img"
       className={cn(
         'relative w-full max-w-lg mx-auto select-none transition-transform duration-300 ease-out hover:scale-[1.01] motion-reduce:transform-none',
         className

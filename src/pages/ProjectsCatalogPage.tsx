@@ -34,14 +34,14 @@ export function ProjectsCatalogPage() {
   const searchQuery = searchParams.get('q') || '';
   const searchInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Atajo de teclado global '/' para enfocar el buscador (sin interferir con inputs activos)
+  // Atajo de teclado accesible ('/' o 'Ctrl+K' / 'Cmd+K') para enfocar el buscador (sin interferir con inputs activos)
   useEffect(() => {
     const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      const isModifierK = (e.key === 'k' || e.key === 'K') && (e.ctrlKey || e.metaKey);
+      const isPlainSlash = e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey;
+
       if (
-        e.key === '/' &&
-        !e.ctrlKey &&
-        !e.metaKey &&
-        !e.altKey &&
+        (isModifierK || isPlainSlash) &&
         document.activeElement?.tagName !== 'INPUT' &&
         document.activeElement?.tagName !== 'TEXTAREA' &&
         !(document.activeElement as HTMLElement)?.isContentEditable
@@ -201,16 +201,16 @@ export function ProjectsCatalogPage() {
             <button
               type="button"
               onClick={() => handleSearchChange('')}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-text-muted hover:text-text-primary rounded-md cursor-pointer"
+              className="absolute right-2.5 top-1/2 -translate-y-1/2 h-6 w-6 inline-flex items-center justify-center p-1 text-text-muted hover:text-text-primary rounded-md cursor-pointer transition-colors"
               aria-label={lang === 'es' ? 'Limpiar búsqueda' : 'Clear search'}
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
             </button>
           ) : (
             <kbd
               aria-hidden="true"
               className="hidden sm:inline-flex items-center justify-center absolute right-2.5 top-1/2 -translate-y-1/2 h-5 w-5 text-[10px] font-mono text-text-muted bg-surface-muted border border-border/80 rounded pointer-events-none select-none"
-              title={lang === 'es' ? 'Presiona / para buscar' : 'Press / to search'}
+              title={lang === 'es' ? 'Presiona / o Ctrl+K para buscar' : 'Press / or Ctrl+K to search'}
             >
               /
             </kbd>
@@ -218,9 +218,9 @@ export function ProjectsCatalogPage() {
         </div>
       </div>
 
-      {/* Conteo Dinámico de Resultados */}
+      {/* Conteo Dinámico de Resultados con Región Live Accesible */}
       <div className="flex items-center justify-between text-xs text-text-muted">
-        <span>
+        <span role="status" aria-live="polite" aria-atomic="true">
           {lang === 'es'
             ? `Mostrando ${filteredProjects.length} de ${verifiedProjects.length} proyectos verificados`
             : `Showing ${filteredProjects.length} of ${verifiedProjects.length} verified projects`}

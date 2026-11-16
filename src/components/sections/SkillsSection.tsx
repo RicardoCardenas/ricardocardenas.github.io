@@ -108,7 +108,7 @@ export function SkillsSection({ lang }: SkillsSectionProps) {
                   >
                     <span>{skill.name}</span>
                     {skill.context ? (
-                      <span className="text-[10px] text-text-muted ml-1 opacity-75">
+                      <span className="text-[10px] text-text-muted ml-1">
                         ({skill.context})
                       </span>
                     ) : null}

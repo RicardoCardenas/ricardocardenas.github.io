@@ -48,6 +48,7 @@ export function ProjectCoverGraphic({
   if (project.id === 'nexo' || project.isAcademicThesis) {
     return (
       <div
+        role="img"
         className={cn(
           'relative w-full overflow-hidden bg-gradient-to-br from-primary/10 via-surface dark:via-surface-elevated to-primary/5 select-none',
           variant === 'card' ? 'aspect-[16/9] border-b border-border/60' : 'aspect-[16/10] sm:aspect-[16/9] rounded-2xl border border-border/80 shadow-md',
@@ -127,7 +128,7 @@ export function ProjectCoverGraphic({
       >
         <img
           src={project.coverImage}
-          alt={project.title}
+          alt={`${project.title} - ${getCoverTag(project.id)}`}
           onError={() => setImageError(true)}
           loading="lazy"
           className="h-full w-full object-cover transition-transform duration-300 group-hover/cover:scale-[1.02]"
@@ -199,6 +200,7 @@ export function ProjectCoverGraphic({
 
   return (
     <div
+      role="img"
       className={cn(
         'relative w-full overflow-hidden select-none flex flex-col justify-between p-4 sm:p-5 bg-gradient-to-br',
         editorial.bgGradient,

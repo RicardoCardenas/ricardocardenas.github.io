@@ -136,6 +136,7 @@ export function ProjectGallery({ images, title, lang }: ProjectGalleryProps) {
           <button
             key={idx}
             type="button"
+            aria-haspopup="dialog"
             aria-label={`${lang === 'es' ? 'Ver imagen ampliada:' : 'Enlarge image:'} ${getImageCaption(img)}`}
             onClick={(e) => handleOpen(idx, e)}
             className="group text-left w-full relative rounded-xl border border-border bg-surface overflow-hidden shadow-2xs hover:border-primary/40 focus:outline-hidden focus:ring-2 focus:ring-primary/50 transition-all cursor-pointer active:scale-[0.98]"

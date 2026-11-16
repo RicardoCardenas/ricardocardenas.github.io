@@ -1,7 +1,7 @@
 import { Download, FileText, CheckCircle2 } from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
+import { buttonVariants } from '../ui/Button';
 
 export interface CVSectionProps {
   lang: 'es' | 'en';
@@ -61,12 +61,10 @@ export function CVSection({ lang }: CVSectionProps) {
               <a
                 href="/cv/CV_Ricardo_Cardenas_Software_Backend.pdf"
                 download="CV_Ricardo_Cardenas_Software_Backend.pdf"
-                className="w-full"
+                className={buttonVariants({ variant: 'primary', size: 'md', className: 'w-full gap-2 text-xs font-semibold h-10 shadow-xs cursor-pointer' })}
               >
-                <Button variant="primary" size="md" className="w-full gap-2 text-xs font-semibold h-10 shadow-xs">
-                  <Download className="h-4 w-4" />
-                  <span>{lang === 'es' ? 'Descargar CV Software (PDF)' : 'Download Software CV (PDF)'}</span>
-                </Button>
+                <Download className="h-4 w-4" />
+                <span>{lang === 'es' ? 'Descargar CV Software (PDF)' : 'Download Software CV (PDF)'}</span>
               </a>
             </div>
           </div>
@@ -109,12 +107,10 @@ export function CVSection({ lang }: CVSectionProps) {
               <a
                 href="/cv/CV_Ricardo_Cardenas-Data.pdf"
                 download="CV_Ricardo_Cardenas-Data.pdf"
-                className="w-full"
+                className={buttonVariants({ variant: 'primary', size: 'md', className: 'w-full gap-2 text-xs font-semibold h-10 shadow-xs cursor-pointer' })}
               >
-                <Button variant="primary" size="md" className="w-full gap-2 text-xs font-semibold h-10 shadow-xs">
-                  <Download className="h-4 w-4" />
-                  <span>{lang === 'es' ? 'Descargar CV Data & AI (PDF)' : 'Download Data & AI CV (PDF)'}</span>
-                </Button>
+                <Download className="h-4 w-4" />
+                <span>{lang === 'es' ? 'Descargar CV Data & AI (PDF)' : 'Download Data & AI CV (PDF)'}</span>
               </a>
             </div>
           </div>
