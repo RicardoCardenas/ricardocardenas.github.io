@@ -21,7 +21,7 @@ export function buttonVariants({
     'inline-flex items-center justify-center font-medium rounded-lg cursor-pointer select-none ' +
     'transition-[transform,background-color,border-color,color,opacity] duration-150 ease-[cubic-bezier(0.16,1,0.3,1)] ' +
     'active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus ' +
-    'disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100';
+    'disabled:opacity-50 disabled:pointer-events-none disabled:active:scale-100 motion-reduce:transition-none motion-reduce:transform-none';
 
   const variants = {
     primary:

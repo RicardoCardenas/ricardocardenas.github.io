@@ -1,6 +1,6 @@
-import { useState, useMemo } from 'react';
+import { useMemo, useRef, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { verifiedProjects } from '../data/projects';
 import type { ProjectCategory } from '../types';
 import { Badge } from '../components/ui/Badge';
@@ -10,12 +10,74 @@ import { EmptyState } from '../components/ui/EmptyState';
 import { ProjectCoverGraphic } from '../components/projects/ProjectCoverGraphic';
 import { Search, ExternalLink, ShieldCheck, ArrowLeft, ArrowRight, X, Sparkles } from 'lucide-react';
 
+const VALID_CATEGORIES: (ProjectCategory | 'all')[] = [
+  'all',
+  'software-engineering',
+  'data-ai',
+  'mobile',
+];
+
 export function ProjectsCatalogPage() {
   const { i18n, t } = useTranslation('common');
   const lang = i18n.language && i18n.language.startsWith('en') ? 'en' : 'es';
 
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'all'>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  // 1. Categoría activa validada desde URL (fallback seguro a 'all' si es desconocida)
+  const rawCategory = searchParams.get('category');
+  const activeCategory: ProjectCategory | 'all' =
+    rawCategory && (VALID_CATEGORIES as string[]).includes(rawCategory)
+      ? (rawCategory as ProjectCategory | 'all')
+      : 'all';
+
+  // 2. Query de búsqueda desde URL
+  const searchQuery = searchParams.get('q') || '';
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+
+  // Atajo de teclado global '/' para enfocar el buscador (sin interferir con inputs activos)
+  useEffect(() => {
+    const handleGlobalKeyDown = (e: KeyboardEvent) => {
+      if (
+        e.key === '/' &&
+        !e.ctrlKey &&
+        !e.metaKey &&
+        !e.altKey &&
+        document.activeElement?.tagName !== 'INPUT' &&
+        document.activeElement?.tagName !== 'TEXTAREA' &&
+        !(document.activeElement as HTMLElement)?.isContentEditable
+      ) {
+        e.preventDefault();
+        searchInputRef.current?.focus();
+      }
+    };
+
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
+
+  const handleCategoryChange = (category: ProjectCategory | 'all') => {
+    const newParams = new URLSearchParams(searchParams);
+    if (category === 'all') {
+      newParams.delete('category');
+    } else {
+      newParams.set('category', category);
+    }
+    setSearchParams(newParams); // Push al historial para soportar Back/Forward entre categorías
+  };
+
+  const handleSearchChange = (val: string) => {
+    const newParams = new URLSearchParams(searchParams);
+    if (!val.trim()) {
+      newParams.delete('q');
+    } else {
+      newParams.set('q', val);
+    }
+    setSearchParams(newParams, { replace: true }); // Replace en historial para no saturarlo con cada tipeo
+  };
+
+  const handleClearFilters = () => {
+    setSearchParams({}, { replace: true });
+  };
 
   const filteredProjects = useMemo(() => {
     return verifiedProjects.filter((project) => {
@@ -84,7 +146,7 @@ export function ProjectsCatalogPage() {
           <Button
             variant={activeCategory === 'all' ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => setActiveCategory('all')}
+            onClick={() => handleCategoryChange('all')}
             className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             {lang === 'es' ? 'Todos' : 'All'} ({categoryCounts.all})
@@ -93,7 +155,7 @@ export function ProjectsCatalogPage() {
           <Button
             variant={activeCategory === 'software-engineering' ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => setActiveCategory('software-engineering')}
+            onClick={() => handleCategoryChange('software-engineering')}
             className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Software ({categoryCounts['software-engineering']})
@@ -102,7 +164,7 @@ export function ProjectsCatalogPage() {
           <Button
             variant={activeCategory === 'data-ai' ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => setActiveCategory('data-ai')}
+            onClick={() => handleCategoryChange('data-ai')}
             className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Data & AI ({categoryCounts['data-ai']})
@@ -111,39 +173,48 @@ export function ProjectsCatalogPage() {
           <Button
             variant={activeCategory === 'mobile' ? 'primary' : 'outline'}
             size="sm"
-            onClick={() => setActiveCategory('mobile')}
+            onClick={() => handleCategoryChange('mobile')}
             className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Mobile ({categoryCounts.mobile})
           </Button>
         </div>
 
-        {/* Input de Búsqueda con Botón Limpiar */}
+        {/* Input de Búsqueda con Botón Limpiar y Atajo de Teclado '/' */}
         <div className="relative w-full sm:w-72">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-text-muted pointer-events-none" />
           <input
+            ref={searchInputRef}
             type="text"
             value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
+            onChange={(e) => handleSearchChange(e.target.value)}
             onKeyDown={(e) => {
               if (e.key === 'Escape') {
-                setSearchQuery('');
+                handleSearchChange('');
               }
             }}
             placeholder={lang === 'es' ? 'Buscar tecnología, rol o título...' : 'Search stack, role or title...'}
             aria-label={lang === 'es' ? 'Buscar proyectos' : 'Search projects'}
-            className="w-full pl-9 pr-8 py-2 text-xs sm:text-sm rounded-lg bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
+            className="w-full pl-9 pr-9 py-2 text-xs sm:text-sm rounded-lg bg-surface border border-border text-text-primary placeholder:text-text-muted focus:outline-hidden focus:ring-2 focus:ring-primary/40 focus:border-primary transition-colors"
           />
           {searchQuery ? (
             <button
               type="button"
-              onClick={() => setSearchQuery('')}
+              onClick={() => handleSearchChange('')}
               className="absolute right-2.5 top-1/2 -translate-y-1/2 p-0.5 text-text-muted hover:text-text-primary rounded-md cursor-pointer"
               aria-label={lang === 'es' ? 'Limpiar búsqueda' : 'Clear search'}
             >
               <X className="h-3.5 w-3.5" />
             </button>
-          ) : null}
+          ) : (
+            <kbd
+              aria-hidden="true"
+              className="hidden sm:inline-flex items-center justify-center absolute right-2.5 top-1/2 -translate-y-1/2 h-5 w-5 text-[10px] font-mono text-text-muted bg-surface-muted border border-border/80 rounded pointer-events-none select-none"
+              title={lang === 'es' ? 'Presiona / para buscar' : 'Press / to search'}
+            >
+              /
+            </kbd>
+          )}
         </div>
       </div>
 
@@ -158,10 +229,7 @@ export function ProjectsCatalogPage() {
         {activeCategory !== 'all' || searchQuery ? (
           <button
             type="button"
-            onClick={() => {
-              setActiveCategory('all');
-              setSearchQuery('');
-            }}
+            onClick={handleClearFilters}
             className="text-primary hover:underline font-medium cursor-pointer"
           >
             {lang === 'es' ? 'Restablecer filtros' : 'Reset all filters'}
@@ -175,7 +243,7 @@ export function ProjectsCatalogPage() {
           {filteredProjects.map((project) => (
             <Card
               key={project.id}
-              className="group flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md active:scale-[0.99]"
+              className="group flex flex-col justify-between overflow-hidden transition-[transform,border-color,box-shadow] duration-200 ease-out hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5 active:scale-[0.99] motion-reduce:transform-none motion-reduce:transition-none"
             >
               {/* Visual Preview Banner Superior */}
               <ProjectCoverGraphic project={project} lang={lang} variant="card" />
@@ -207,7 +275,11 @@ export function ProjectsCatalogPage() {
 
                 <div>
                   <CardTitle className="text-xl text-text-primary group-hover:text-primary transition-colors duration-150">
-                    <Link to={`/projects/${project.slug}`} className="hover:underline focus-visible:outline-hidden">
+                    <Link
+                      to={`/projects/${project.slug}`}
+                      state={{ fromQuery: searchParams.toString() }}
+                      className="hover:underline focus-visible:outline-hidden"
+                    >
                       {project.title}
                     </Link>
                   </CardTitle>
@@ -256,10 +328,11 @@ export function ProjectsCatalogPage() {
               <CardFooter className="pt-3 border-t border-border/60 flex items-center justify-between">
                 <Link
                   to={`/projects/${project.slug}`}
+                  state={{ fromQuery: searchParams.toString() }}
                   className="inline-flex items-center gap-1.5 text-primary text-xs hover:text-primary-hover font-medium cursor-pointer"
                 >
                   <span>{t('actions.viewCaseStudy')}</span>
-                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150" />
+                  <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150 motion-reduce:transform-none" />
                 </Link>
 
                 {project.links.github ? (
@@ -287,12 +360,7 @@ export function ProjectsCatalogPage() {
           ))}
         </div>
       ) : (
-        <EmptyState
-          onReset={() => {
-            setActiveCategory('all');
-            setSearchQuery('');
-          }}
-        />
+        <EmptyState onReset={handleClearFilters} />
       )}
     </div>
   );

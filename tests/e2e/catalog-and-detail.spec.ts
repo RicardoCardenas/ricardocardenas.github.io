@@ -65,6 +65,55 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await expect(page.getByRole('link', { name: /capital cruise/i }).first()).toBeVisible();
   });
 
+  test('Fase 3.2: persistencia de filtros en URL y retorno desde detalle de proyecto', async ({ page }) => {
+    // 1. Acceso directo con query param en URL
+    await page.goto('/projects?category=data-ai');
+    await expect(page.getByRole('link', { name: /thelook/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /capital cruise/i }).first()).not.toBeVisible();
+
+    // 2. Navegar hacia el detalle de un proyecto
+    await page.getByRole('link', { name: /thelook/i }).first().click();
+    await expect(page).toHaveURL(/\/projects\/thelook-ecommerce-pipeline/);
+
+    // 3. Retornar al catálogo con el botón "Volver al catálogo"
+    const backButton = page.getByRole('link', { name: /volver al catálogo|back to catalog/i });
+    await backButton.click();
+
+    // 4. Verificar que se conservó el filtro de categoría en la URL
+    await expect(page).toHaveURL(/\/projects\?category=data-ai/);
+    await expect(page.getByRole('link', { name: /thelook/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /capital cruise/i }).first()).not.toBeVisible();
+
+    // 5. Atajo de teclado '/' para enfocar el buscador
+    await page.keyboard.press('/');
+    const searchInput = page.getByRole('textbox', { name: /buscar proyectos|search projects/i });
+    await expect(searchInput).toBeFocused();
+
+    // 6. Escribir término de búsqueda
+    await searchInput.fill('Churn');
+    await expect(page).toHaveURL(/category=data-ai/);
+    await expect(page).toHaveURL(/q=Churn/);
+    await expect(page.getByRole('link', { name: /customer churn/i }).first()).toBeVisible();
+    await expect(page.getByRole('link', { name: /thelook/i }).first()).not.toBeVisible();
+  });
+
+  test('Fase 3.2: accesibilidad de movimiento con prefers-reduced-motion', async ({ page }) => {
+    await page.emulateMedia({ reducedMotion: 'reduce' });
+    await page.goto('/');
+
+    // Comprobar que la página carga correctamente y el elemento existe sin animaciones bloqueantes
+    const heroTitle = page.getByRole('heading', { level: 1 });
+    await expect(heroTitle).toContainText('Ricardo Cardenas');
+
+    // Verificar botón de CV Software en Hero
+    const cvButton = page.locator('#hero').getByRole('link', { name: /descargar cv software|download software cv/i });
+    await expect(cvButton).toBeVisible();
+
+    // Verificar link complementario a CV Data & AI
+    const dataCvLink = page.locator('#hero').getByRole('link', { name: /(cv data & ai|data & ai cv)/i });
+    await expect(dataCvLink).toBeVisible();
+  });
+
   test('caso de estudio Nexo: respeta estrictamente la privacidad académica', async ({ page }) => {
     await page.goto('/projects/nexo-agentic-graphrag');
 
@@ -320,6 +369,22 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     });
     await page.screenshot({
       path: 'docs/reports/screenshots/talestar-detail-desktop-dark-1440.png',
+      fullPage: true,
+    });
+
+    // 8. Fase 3.2: Catálogo con Filtro y Búsqueda Activa (Desktop 1440px y Móvil 390px)
+    await page.goto('/projects?category=data-ai&q=Churn');
+    await page.waitForLoadState('networkidle');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/catalog-filtered-desktop-dark-1440.png',
+      fullPage: true,
+    });
+
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto('/projects?category=data-ai&q=Churn');
+    await page.waitForLoadState('networkidle');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/catalog-filtered-mobile-dark-390.png',
       fullPage: true,
     });
   });

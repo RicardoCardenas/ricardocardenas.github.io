@@ -2,7 +2,7 @@ import { ArrowDown, FileText, Github, Linkedin, Mail, ShieldCheck, FolderGit2, L
 import { verifiedProfile } from '../../data/profile';
 import { Avatar } from '../ui/Avatar';
 import { Badge } from '../ui/Badge';
-import { Button } from '../ui/Button';
+import { buttonVariants } from '../ui/Button';
 import { HeroArchitectureGraphic } from '../ui/HeroArchitectureGraphic';
 
 export interface HeroSectionProps {
@@ -21,18 +21,18 @@ export function HeroSection({ lang }: HeroSectionProps) {
         {/* Columna Izquierda: Identidad, Título, Propuesta de Valor y Acciones (7 columnas) */}
         <div className="lg:col-span-7 space-y-6">
           {/* 1. Badges Superiores de Estado y Carrera Académica */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-success/30 bg-success/10 text-success text-xs font-semibold select-none">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-2.5">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-success/30 bg-success/10 text-success text-[11px] sm:text-xs font-semibold select-none">
               <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75" />
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-success opacity-75 motion-reduce:animate-none" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-success" />
               </span>
               <span>{verifiedProfile.availability.label[lang]}</span>
             </div>
 
-            <Badge variant="outline" className="gap-1.5 text-xs text-text-secondary font-medium py-1 px-3">
+            <Badge variant="outline" className="gap-1.5 text-[11px] sm:text-xs text-text-secondary font-medium py-1 px-3">
               <ShieldCheck className="h-3.5 w-3.5 text-primary shrink-0" />
-              <span>UPC • {lang === 'es' ? 'Ingeniería de Software' : 'Software Engineering'} • {lang === 'es' ? 'Décimo Superior' : 'Top 10%'}</span>
+              <span>UPC • {lang === 'es' ? 'Ingeniería de Software' : 'Software Engineering'}</span>
             </Badge>
           </div>
 
@@ -65,56 +65,69 @@ export function HeroSection({ lang }: HeroSectionProps) {
           </div>
 
           {/* 4. Acciones Principales y Enlaces Profesionales */}
-          <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-1">
-            <a href="#featured-projects" className="w-full sm:w-auto">
-              <Button variant="primary" size="md" className="w-full sm:w-auto gap-2 text-sm font-semibold h-11 px-5 shadow-xs">
+          <div className="space-y-2 pt-1">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+              <a
+                href="#featured-projects"
+                className={buttonVariants({ variant: 'primary', size: 'md', className: 'w-full sm:w-auto gap-2 text-sm font-semibold h-11 px-5 shadow-xs cursor-pointer' })}
+              >
                 <span>{lang === 'es' ? 'Explorar Proyectos' : 'Explore Projects'}</span>
                 <ArrowDown className="h-4 w-4" />
-              </Button>
-            </a>
+              </a>
 
-            <a
-              href="/cv/CV_Ricardo_Cardenas_Software_Backend.pdf"
-              download="CV_Ricardo_Cardenas_Software_Backend.pdf"
-              className="w-full sm:w-auto"
-            >
-              <Button variant="outline" size="md" className="w-full sm:w-auto gap-2 text-sm font-semibold h-11 px-5">
+              <a
+                href="/cv/CV_Ricardo_Cardenas_Software_Backend.pdf"
+                download="CV_Ricardo_Cardenas_Software_Backend.pdf"
+                className={buttonVariants({ variant: 'outline', size: 'md', className: 'w-full sm:w-auto gap-2 text-sm font-semibold h-11 px-5 cursor-pointer' })}
+              >
                 <FileText className="h-4 w-4 text-text-muted" />
-                <span>{lang === 'es' ? 'Descargar CV (PDF)' : 'Download CV (PDF)'}</span>
-              </Button>
-            </a>
-
-            {/* Separador y enlaces de redes profesionales */}
-            <div className="flex items-center gap-2 pt-2 sm:pt-0 sm:pl-3 sm:border-l sm:border-border w-full sm:w-auto">
-              <a
-                href={verifiedProfile.contacts.github}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub Profile"
-                className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
-                title="GitHub"
-              >
-                <Github className="h-5 w-5" />
+                <span>{lang === 'es' ? 'Descargar CV Software (PDF)' : 'Download Software CV (PDF)'}</span>
               </a>
 
-              <a
-                href={verifiedProfile.contacts.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn Profile"
-                className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
-                title="LinkedIn"
-              >
-                <Linkedin className="h-5 w-5" />
-              </a>
+              {/* Separador y enlaces de redes profesionales */}
+              <div className="flex items-center gap-2 pt-2 sm:pt-0 sm:pl-3 sm:border-l sm:border-border w-full sm:w-auto">
+                <a
+                  href={verifiedProfile.contacts.github}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="GitHub Profile"
+                  className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
+                  title="GitHub"
+                >
+                  <Github className="h-5 w-5" />
+                </a>
 
+                <a
+                  href={verifiedProfile.contacts.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                  className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
+                  title="LinkedIn"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+
+                <a
+                  href={`mailto:${verifiedProfile.contacts.email}`}
+                  aria-label="Email Contact"
+                  className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
+                  title="Email"
+                >
+                  <Mail className="h-5 w-5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Enlace contextual al CV Data & AI, estrechamente vinculado al bloque de CV */}
+            <div className="flex items-center gap-1.5 text-xs text-text-muted pl-0.5 pt-0.5">
+              <span>{lang === 'es' ? '¿Buscas el perfil Data & AI?' : 'Looking for Data & AI profile?'}</span>
               <a
-                href={`mailto:${verifiedProfile.contacts.email}`}
-                aria-label="Email Contact"
-                className="flex items-center justify-center h-11 w-11 rounded-lg border border-border bg-surface hover:border-primary/50 hover:text-primary text-text-secondary transition-all active:scale-95"
-                title="Email"
+                href="#cv"
+                className="text-primary hover:text-primary-hover font-medium underline underline-offset-2 transition-colors inline-flex items-center gap-1 cursor-pointer"
               >
-                <Mail className="h-5 w-5" />
+                <FileText className="h-3 w-3 shrink-0" />
+                <span>{lang === 'es' ? 'Ver CV Data & AI (sección CV) ↓' : 'View Data & AI CV (CV section) ↓'}</span>
               </a>
             </div>
           </div>

@@ -25,7 +25,7 @@ export function FeaturedProjectCard({
   return (
     <Card
       className={cn(
-        'group flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md',
+        'group flex flex-col justify-between overflow-hidden transition-[transform,border-color,box-shadow] duration-200 ease-out hover:border-primary/50 hover:shadow-md hover:-translate-y-0.5 motion-reduce:transform-none motion-reduce:transition-none',
         project.isAcademicThesis && 'border-primary/30',
         className
       )}

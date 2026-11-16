@@ -67,7 +67,7 @@ export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
                     key={link.key}
                     to={href}
                     onClick={handleLinkClick}
-                    className="flex items-center h-12 px-3 text-sm font-medium rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface active:bg-border/30 transition-colors"
+                    className="flex items-center h-12 px-3 text-sm font-medium rounded-lg text-text-secondary hover:text-text-primary hover:bg-surface active:bg-surface-muted/80 active:scale-[0.99] transition-[background-color,transform] duration-75 select-none"
                   >
                     {link.label}
                   </Link>
@@ -76,7 +76,7 @@ export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
               <Link
                 to="/projects"
                 onClick={handleLinkClick}
-                className="flex items-center justify-between h-12 px-3 text-sm font-medium rounded-lg text-primary hover:bg-accent-subtle transition-colors"
+                className="flex items-center justify-between h-12 px-3 text-sm font-medium rounded-lg text-primary hover:bg-accent-subtle active:bg-primary/15 active:scale-[0.99] transition-[background-color,transform] duration-75 select-none"
               >
                 <span>{t('actions.exploreProjects')}</span>
                 <ExternalLink className="h-4 w-4" />

@@ -2,27 +2,29 @@ import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 /**
- * Hook para desplazamiento suave hacia elementos anclados por hash (#seccion),
- * respetando el desplazamiento con retraso para permitir el montaje del DOM.
+ * Hook para desplazamiento accesible hacia elementos anclados por hash (#seccion),
+ * respetando las preferencias de reducción de movimiento del usuario.
  */
 export function useHashScroll() {
-  const { pathname, hash } = useLocation();
+  const { hash } = useLocation();
 
   useEffect(() => {
-    if (!hash) {
-      // Si navegamos a una ruta sin hash, restauramos arriba
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      return;
-    }
+    if (!hash) return;
 
     const targetId = hash.replace('#', '');
     const element = document.getElementById(targetId);
 
     if (element) {
-      // Pequeño timeout para asegurar que el layout haya finalizado
+      const prefersReducedMotion =
+        typeof window !== 'undefined' &&
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        element.scrollIntoView({
+          behavior: prefersReducedMotion ? 'auto' : 'smooth',
+          block: 'start',
+        });
       }, 50);
     }
-  }, [pathname, hash]);
+  }, [hash]);
 }

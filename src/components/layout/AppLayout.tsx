@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { useHashScroll } from '../../hooks/useHashScroll';
@@ -8,6 +8,7 @@ export function AppLayout() {
 
   return (
     <div className="min-h-screen flex flex-col bg-background text-text-primary">
+      <ScrollRestoration getKey={(location) => location.pathname} />
       {/* Enlace accesible para lectores de pantalla y navegación por teclado */}
       <a
         href="#main-content"

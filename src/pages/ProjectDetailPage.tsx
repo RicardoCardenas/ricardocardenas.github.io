@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { verifiedProjects } from '../data/projects';
 import { NotFoundPage } from './NotFoundPage';
@@ -26,6 +26,7 @@ export function ProjectDetailPage() {
   const { slug } = useParams<{ slug: string }>();
   const { i18n } = useTranslation('common');
   const lang = i18n.language && i18n.language.startsWith('en') ? 'en' : 'es';
+  const location = useLocation();
 
   const project = verifiedProjects.find((p) => p.slug === slug);
 
@@ -37,6 +38,10 @@ export function ProjectDetailPage() {
     project.relatedProjectSlugs.includes(p.slug)
   );
 
+  const catalogReturnPath = location.state?.fromQuery
+    ? `/projects?${location.state.fromQuery}`
+    : '/projects';
+
   return (
     <div className="py-8 sm:py-12 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
       {/* 1. Breadcrumbs Semánticos */}
@@ -46,7 +51,7 @@ export function ProjectDetailPage() {
           <span>{lang === 'es' ? 'Inicio' : 'Home'}</span>
         </Link>
         <span>/</span>
-        <Link to="/projects" className="hover:text-text-primary transition-colors cursor-pointer">
+        <Link to={catalogReturnPath} className="hover:text-text-primary transition-colors cursor-pointer">
           {lang === 'es' ? 'Catálogo de Proyectos' : 'Projects Catalog'}
         </Link>
         <span>/</span>
@@ -109,7 +114,7 @@ export function ProjectDetailPage() {
               ) : null}
 
               <Link
-                to="/projects"
+                to={catalogReturnPath}
                 className={buttonVariants({ variant: 'outline', size: 'md', className: 'gap-2 cursor-pointer active:scale-[0.98] transition-transform' })}
               >
                 <ArrowLeft className="h-4 w-4" />
@@ -338,11 +343,11 @@ export function ProjectDetailPage() {
       {/* 14. Botón Inferior de Retorno */}
       <div className="pt-6 border-t border-border flex justify-between items-center">
         <Link
-          to="/projects"
+          to={catalogReturnPath}
           className={buttonVariants({ variant: 'outline', size: 'sm', className: 'gap-2 text-xs cursor-pointer' })}
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          <span>{lang === 'es' ? 'Volver al catálogo completo' : 'Back to projects catalog'}</span>
+          <span>{lang === 'es' ? 'Volver al catálogo' : 'Back to projects catalog'}</span>
         </Link>
       </div>
     </div>
