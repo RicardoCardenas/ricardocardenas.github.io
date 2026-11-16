@@ -72,8 +72,8 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await expect(page.getByRole('heading', { level: 1 })).toContainText('Nexo — Agentic GraphRAG');
     await expect(page.getByText(/tesis upc|upc thesis/i).first()).toBeVisible();
 
-    // 2. Banner de propiedad intelectual y reserva
-    await expect(page.getByText(/reserva de investigación|research reservation/i).first()).toBeVisible();
+    // 2. Banner de propiedad intelectual y desarrollo de tesis
+    await expect(page.getByText(/propiedad intelectual|intellectual property/i).first()).toBeVisible();
 
     // 3. Ausencia estricta de enlace a GitHub dentro del caso de estudio
     await expect(page.locator('#main-content').getByRole('link', { name: /github/i })).not.toBeVisible();
@@ -171,6 +171,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     const catalogLightBg = await page.evaluate(() => window.getComputedStyle(document.body).backgroundColor);
     expect(catalogLightBg).toBe('rgb(255, 255, 255)');
     await page.screenshot({
+      path: 'docs/reports/screenshots/catalog-hero-desktop-light-1440.png',
+      fullPage: false,
+    });
+    await page.screenshot({
       path: 'docs/reports/screenshots/catalog-desktop-light-1440.png',
       fullPage: true,
     });
@@ -184,6 +188,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await page.waitForLoadState('networkidle');
     const catalogDarkBg = await page.evaluate(() => window.getComputedStyle(document.body).backgroundColor);
     expect(catalogDarkBg).toBe('rgb(9, 9, 11)');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/catalog-hero-desktop-dark-1440.png',
+      fullPage: false,
+    });
     await page.screenshot({
       path: 'docs/reports/screenshots/catalog-desktop-dark-1440.png',
       fullPage: true,
@@ -222,6 +230,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await page.goto('/projects/nexo-agentic-graphrag');
     await page.waitForLoadState('networkidle');
     await page.screenshot({
+      path: 'docs/reports/screenshots/nexo-detail-hero-desktop-light-1440.png',
+      fullPage: false,
+    });
+    await page.screenshot({
       path: 'docs/reports/screenshots/nexo-detail-desktop-light-1440.png',
       fullPage: true,
     });
@@ -232,6 +244,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     });
     await page.goto('/projects/nexo-agentic-graphrag');
     await page.waitForLoadState('networkidle');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/nexo-detail-hero-desktop-dark-1440.png',
+      fullPage: false,
+    });
     await page.screenshot({
       path: 'docs/reports/screenshots/nexo-detail-desktop-dark-1440.png',
       fullPage: true,
@@ -253,6 +269,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await page.goto('/projects/capital-cruise');
     await page.waitForLoadState('networkidle');
     await page.screenshot({
+      path: 'docs/reports/screenshots/capital-cruise-detail-hero-desktop-light-1440.png',
+      fullPage: false,
+    });
+    await page.screenshot({
       path: 'docs/reports/screenshots/capital-cruise-detail-desktop-light-1440.png',
       fullPage: true,
     });
@@ -263,6 +283,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     });
     await page.goto('/projects/capital-cruise');
     await page.waitForLoadState('networkidle');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/capital-cruise-detail-hero-desktop-dark-1440.png',
+      fullPage: false,
+    });
     await page.screenshot({
       path: 'docs/reports/screenshots/capital-cruise-detail-desktop-dark-1440.png',
       fullPage: true,
@@ -276,6 +300,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await page.goto('/projects/talestar-mobile');
     await page.waitForLoadState('networkidle');
     await page.screenshot({
+      path: 'docs/reports/screenshots/talestar-detail-hero-desktop-light-1440.png',
+      fullPage: false,
+    });
+    await page.screenshot({
       path: 'docs/reports/screenshots/talestar-detail-desktop-light-1440.png',
       fullPage: true,
     });
@@ -286,6 +314,10 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     });
     await page.goto('/projects/talestar-mobile');
     await page.waitForLoadState('networkidle');
+    await page.screenshot({
+      path: 'docs/reports/screenshots/talestar-detail-hero-desktop-dark-1440.png',
+      fullPage: false,
+    });
     await page.screenshot({
       path: 'docs/reports/screenshots/talestar-detail-desktop-dark-1440.png',
       fullPage: true,

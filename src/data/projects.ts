@@ -141,14 +141,14 @@ export const verifiedProjects: ProjectCaseStudy[] = [
     ],
     metrics: [
       {
-        value: '7 Contextos',
+        value: { es: '7 Contextos', en: '7 Contexts' },
         label: { es: 'Bounded Contexts DDD', en: 'DDD Bounded Contexts' },
         description: { es: 'Aislamiento de dominio en monolito modular', en: 'Strict domain isolation in modular monolith' },
         category: 'architecture',
         verifiedSource: 'Auditoría de código backend/app en C:\\Ricardo\\ProyectoTesis\\Nexo',
       },
       {
-        value: 'Fase 0',
+        value: { es: 'Fase 0', en: 'Phase 0' },
         label: { es: 'Línea Base Verificada', en: 'Verified Baseline' },
         description: { es: 'Health checks, Docker Compose y suite Pytest validados', en: 'Health checks, Docker Compose, and Pytest suite validated' },
         category: 'architecture',
@@ -383,7 +383,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'Capital Cruise README y controladores bimoneda',
       },
       {
-        value: 'Método Francés',
+        value: { es: 'Método Francés', en: 'French Method' },
         label: { es: 'Amortización & Balón', en: 'Amortization & Balloon' },
         description: { es: 'Conversión de TEA a TEM con periodos de gracia total y parcial', en: 'TEA to TEM rate conversion with full and partial grace periods' },
         category: 'functional',
@@ -613,7 +613,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'android/app/src/main/kotlin/ PlatformView & ARCore',
       },
       {
-        value: '4 Dígitos',
+        value: { es: '4 Dígitos', en: '4 Digits' },
         label: { es: 'PIN Confinamiento', en: 'Parental PIN Guard' },
         description: { es: 'Bloqueo reactivo de rutas con GoRouter y Android KeyStore', en: 'Reactive route confinement via GoRouter & Android KeyStore' },
         category: 'architecture',
@@ -1040,7 +1040,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'BigQuery ML ML.EVALUATE output',
       },
       {
-        value: '30 Días',
+        value: { es: '30 Días', en: '30 Days' },
         label: { es: 'Horizonte Forecast', en: 'Forecast Horizon' },
         description: { es: 'Proyección temporal con ARIMA_PLUS (95% confianza)', en: 'Time-series forecasting with ARIMA_PLUS (95% CI)' },
         category: 'functional',
@@ -1117,6 +1117,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
       es: 'Dashboard Ejecutivo Completado',
       en: 'Executive Dashboard Completed',
     },
+    coverImage: '/images/projects/churn-dashboard.png',
     summary: {
       es: 'Análisis exploratorio de datos, segmentación K-Means y cuantificación financiera del abandono de clientes en telecomunicaciones con Power BI.',
       en: 'Exploratory data analysis, K-Means customer segmentation, and financial churn impact quantification for telecom with Power BI.',
@@ -1441,7 +1442,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'Jobsy.sln target framework net9.0',
       },
       {
-        value: '4 Contextos',
+        value: { es: '4 Contextos', en: '4 Contexts' },
         label: { es: 'Bounded Contexts', en: 'Bounded Contexts' },
         description: { es: 'Límites DDD acotados (IAM, JobOffer, AI, Messages)', en: 'Domain-Driven Design bounded contexts' },
         category: 'architecture',

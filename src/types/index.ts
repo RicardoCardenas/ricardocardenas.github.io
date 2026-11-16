@@ -42,7 +42,7 @@ export interface TechnicalDecision {
 export type MetricCategory = 'functional' | 'testing' | 'architecture' | 'data';
 
 export interface ProjectMetric {
-  value: string;
+  value: string | LocalizedString;
   label: LocalizedString;
   description?: LocalizedString;
   category: MetricCategory;

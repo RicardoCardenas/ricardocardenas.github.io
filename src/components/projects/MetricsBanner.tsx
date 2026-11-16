@@ -41,7 +41,7 @@ export function MetricsBanner({ metrics, lang }: MetricsBannerProps) {
               </div>
 
               <div className="text-2xl sm:text-3xl font-extrabold text-primary font-mono tracking-tight">
-                {metric.value}
+                {typeof metric.value === 'string' ? metric.value : metric.value[lang]}
               </div>
             </div>
 

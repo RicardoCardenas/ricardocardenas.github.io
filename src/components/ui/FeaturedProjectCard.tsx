@@ -38,18 +38,19 @@ export function FeaturedProjectCard({
             {/* Aristas del grafo */}
             <line x1="80" y1="90" x2="160" y2="45" strokeWidth="1.5" strokeDasharray="3 3" />
             <line x1="80" y1="90" x2="160" y2="135" strokeWidth="1.5" strokeDasharray="3 3" />
-            <line x1="160" y1="45" x2="240" y2="90" strokeWidth="1.5" />
-            <line x1="160" y1="135" x2="240" y2="90" strokeWidth="1.5" />
+            <line x1="160" y1="45" x2="240" y2="90" strokeWidth="1.5" strokeDasharray="3 3" className="stroke-amber-500/70" />
+            <line x1="160" y1="135" x2="240" y2="90" strokeWidth="1.5" strokeDasharray="3 3" className="stroke-amber-500/70" />
             {/* Nodos */}
             <circle cx="80" cy="90" r="22" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
             <circle cx="160" cy="45" r="20" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
             <circle cx="160" cy="135" r="20" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
-            <circle cx="240" cy="90" r="24" className="fill-primary/20 stroke-primary" strokeWidth="2" />
+            <circle cx="240" cy="90" r="26" className="fill-amber-500/5 stroke-amber-500/80" strokeWidth="1.75" strokeDasharray="3 3" />
             {/* Etiquetas de nodos */}
             <text x="80" y="93" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">Postgres</text>
             <text x="160" y="48" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">Neo4j</text>
             <text x="160" y="138" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">pgvector</text>
-            <text x="240" y="93" textAnchor="middle" className="text-[10px] fill-primary font-mono font-bold" stroke="none">LangGraph</text>
+            <text x="240" y="87" textAnchor="middle" className="text-[9.5px] fill-amber-600 dark:fill-amber-400 font-mono font-bold" stroke="none">LangGraph</text>
+            <text x="240" y="99" textAnchor="middle" className="text-[7px] fill-amber-600 dark:fill-amber-400 font-mono font-semibold uppercase" stroke="none">{lang === 'es' ? 'Planificado' : 'Planned'}</text>
           </svg>
 
           <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/90 border border-primary/30 text-[10px] font-semibold text-primary backdrop-blur-xs shadow-2xs">
@@ -185,7 +186,7 @@ export function FeaturedProjectCard({
         ) : project.isPrivateCode ? (
           <div
             className="flex items-center gap-1 text-[11px] text-text-muted italic px-2 py-1 rounded bg-surface-muted/60 border border-border/40 select-none"
-            title={lang === 'es' ? 'Código privado por reserva de investigación' : 'Private codebase for thesis research'}
+            title={lang === 'es' ? 'Código privado durante el desarrollo del proyecto de tesis' : 'Private codebase during thesis project development'}
           >
             <ShieldCheck className="h-3 w-3 text-warning" />
             <span>{lang === 'es' ? 'Código Privado' : 'Private Code'}</span>

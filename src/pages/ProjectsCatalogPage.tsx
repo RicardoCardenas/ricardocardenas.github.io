@@ -7,6 +7,7 @@ import { Badge } from '../components/ui/Badge';
 import { Button, buttonVariants } from '../components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import { EmptyState } from '../components/ui/EmptyState';
+import { ProjectCoverGraphic } from '../components/projects/ProjectCoverGraphic';
 import { Search, ExternalLink, ShieldCheck, ArrowLeft, ArrowRight, X, Sparkles } from 'lucide-react';
 
 export function ProjectsCatalogPage() {
@@ -84,7 +85,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'all' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('all')}
-            className="text-xs h-9 cursor-pointer"
+            className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             {lang === 'es' ? 'Todos' : 'All'} ({categoryCounts.all})
           </Button>
@@ -93,7 +94,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'software-engineering' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('software-engineering')}
-            className="text-xs h-9 cursor-pointer"
+            className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Software ({categoryCounts['software-engineering']})
           </Button>
@@ -102,7 +103,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'data-ai' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('data-ai')}
-            className="text-xs h-9 cursor-pointer"
+            className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Data & AI ({categoryCounts['data-ai']})
           </Button>
@@ -111,7 +112,7 @@ export function ProjectsCatalogPage() {
             variant={activeCategory === 'mobile' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveCategory('mobile')}
-            className="text-xs h-9 cursor-pointer"
+            className="text-xs h-9 cursor-pointer active:scale-[0.97] transition-transform duration-100"
           >
             Mobile ({categoryCounts.mobile})
           </Button>
@@ -174,8 +175,11 @@ export function ProjectsCatalogPage() {
           {filteredProjects.map((project) => (
             <Card
               key={project.id}
-              className="group flex flex-col justify-between transition-all duration-200 hover:border-primary/40 hover:shadow-xs"
+              className="group flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md active:scale-[0.99]"
             >
+              {/* Visual Preview Banner Superior */}
+              <ProjectCoverGraphic project={project} lang={lang} variant="card" />
+
               <CardHeader className="space-y-3 pb-3">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div className="flex flex-wrap items-center gap-1.5">
@@ -220,7 +224,11 @@ export function ProjectsCatalogPage() {
                 {project.metrics && project.metrics.length > 0 ? (
                   <div className="pt-1 flex items-center gap-2">
                     <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-muted text-xs font-mono font-medium text-text-primary border border-border/60">
-                      <span className="font-bold text-primary">{project.metrics[0].value}</span>
+                      <span className="font-bold text-primary">
+                        {typeof project.metrics[0].value === 'string'
+                          ? project.metrics[0].value
+                          : project.metrics[0].value[lang]}
+                      </span>
                       <span className="text-text-muted text-[11px]">• {project.metrics[0].label[lang]}</span>
                     </span>
                   </div>
@@ -268,7 +276,7 @@ export function ProjectsCatalogPage() {
                 ) : project.isPrivateCode ? (
                   <div
                     className="flex items-center gap-1 text-[11px] text-text-muted italic px-2 py-1 rounded bg-surface-muted/60 border border-border/40"
-                    title={lang === 'es' ? 'Código privado por reserva de investigación' : 'Private codebase for thesis research'}
+                    title={lang === 'es' ? 'Código privado durante el desarrollo del proyecto de tesis' : 'Private codebase during thesis project development'}
                   >
                     <ShieldCheck className="h-3 w-3 text-warning" />
                     <span>{lang === 'es' ? 'Código Privado' : 'Private Code'}</span>
