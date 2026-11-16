@@ -1,0 +1,42 @@
+{
+  "theme": {
+    "title": "Color theme",
+    "light": "Light",
+    "dark": "Dark",
+    "system": "System",
+    "toggleAria": "Change color theme"
+  },
+  "language": {
+    "title": "Language",
+    "es": "Spanish",
+    "en": "English",
+    "toggleAria": "Select language"
+  },
+  "actions": {
+    "downloadCV": "Download Resume",
+    "exploreProjects": "Explore Projects",
+    "viewCaseStudy": "View Case Study",
+    "viewSource": "View on GitHub",
+    "contactMe": "Get in touch",
+    "copyEmail": "Copy email",
+    "copiedEmail": "Email copied to clipboard!",
+    "backToProjects": "Back to Projects",
+    "backToHome": "Back to Home",
+    "clearFilters": "Clear filters"
+  },
+  "status": {
+    "openToWork": "Available for internships",
+    "thesisProject": "UPC Thesis Project (Private Code)",
+    "completed": "Completed",
+    "inProgress": "In progress"
+  },
+  "emptyState": {
+    "noProjectsFound": "No matching projects found",
+    "noProjectsDescription": "No projects match your current search query or category filter."
+  },
+  "notFound": {
+    "title": "Page Not Found",
+    "description": "The page you are looking for does not exist or has been moved.",
+    "cta": "Return to Home"
+  }
+}

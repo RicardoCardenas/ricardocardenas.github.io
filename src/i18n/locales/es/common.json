@@ -1,0 +1,42 @@
+{
+  "theme": {
+    "title": "Tema visual",
+    "light": "Claro",
+    "dark": "Oscuro",
+    "system": "Sistema",
+    "toggleAria": "Cambiar tema visual"
+  },
+  "language": {
+    "title": "Idioma",
+    "es": "Español",
+    "en": "English",
+    "toggleAria": "Seleccionar idioma"
+  },
+  "actions": {
+    "downloadCV": "Descargar CV",
+    "exploreProjects": "Explorar proyectos",
+    "viewCaseStudy": "Ver caso de estudio",
+    "viewSource": "Ver código en GitHub",
+    "contactMe": "Contactar",
+    "copyEmail": "Copiar correo",
+    "copiedEmail": "¡Correo copiado al portapapeles!",
+    "backToProjects": "Volver a proyectos",
+    "backToHome": "Volver al inicio",
+    "clearFilters": "Limpiar filtros"
+  },
+  "status": {
+    "openToWork": "Disponible para prácticas preprofesionales",
+    "thesisProject": "Proyecto de Tesis UPC (Código Privado)",
+    "completed": "Completado",
+    "inProgress": "En desarrollo"
+  },
+  "emptyState": {
+    "noProjectsFound": "No se encontraron proyectos",
+    "noProjectsDescription": "No hay proyectos que coincidan con la búsqueda o categoría seleccionada."
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "description": "La ruta solicitada no existe o fue trasladada.",
+    "cta": "Regresar a la página principal"
+  }
+}

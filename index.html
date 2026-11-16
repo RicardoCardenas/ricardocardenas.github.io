@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>Ricardo Cardenas | Software Engineering & Architecture</title>
+    <meta name="description" content="Portafolio profesional de Ricardo Cardenas, estudiante de Ingeniería de Software (UPC, Décimo Superior). Especializado en arquitectura DDD, microservicios, cloud, data engineering e inteligencia artificial con GraphRAG." />
+    <meta name="author" content="Ricardo Fernando Cardenas Minaya" />
+    
+    <!-- Script Anti-FOUT inline síncrono para prevención de destello en modo oscuro -->
+    <script>
+      (function() {
+        try {
+          var storedTheme = localStorage.getItem('portfolio-theme');
+          var systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          if (storedTheme === 'dark' || (!storedTheme && systemPrefersDark)) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="bg-background text-text-primary antialiased selection:bg-primary/20 selection:text-primary">
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

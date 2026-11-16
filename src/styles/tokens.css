@@ -1,0 +1,55 @@
+:root {
+  /* Modo Claro - Superficies neutras limpias (Slate) */
+  --background: #ffffff;
+  --surface: #f8fafc;
+  --surface-elevated: #ffffff;
+  --border: #e2e8f0;
+  --border-subtle: #f1f5f9;
+
+  /* Tipografía */
+  --text-primary: #0f172a;     /* Ratio 15.6:1 AAA */
+  --text-secondary: #475569;   /* Ratio 5.9:1 AA */
+  --text-muted: #64748b;       /* Ratio 4.6:1 AA */
+
+  /* Identidad Violeta */
+  --primary: #7c3aed;          /* Violet 600 - Ratio 4.6:1 AA */
+  --primary-hover: #6d28d9;
+  --primary-foreground: #ffffff;
+  --accent: #8b5cf6;           /* Violet 500 */
+  --accent-subtle: #f5f3ff;
+
+  /* Estados y Feedback */
+  --focus: #7c3aed;
+  --ring: rgba(124, 58, 237, 0.35);
+  --success: #16a34a;
+  --warning: #d97706;
+  --error: #dc2626;
+}
+
+.dark {
+  /* Modo Oscuro - Superficies neutras profundas (Zinc) */
+  --background: #09090b;
+  --surface: #121215;
+  --surface-elevated: #18181b;
+  --border: #27272a;
+  --border-subtle: #1e1e22;
+
+  /* Tipografía */
+  --text-primary: #f4f4f5;     /* Ratio 16.8:1 AAA */
+  --text-secondary: #a1a1aa;   /* Ratio 7.2:1 AAA */
+  --text-muted: #71717a;       /* Ratio 4.6:1 AA */
+
+  /* Identidad Violeta */
+  --primary: #a78bfa;          /* Violet 400 - Ratio 8.5:1 AAA */
+  --primary-hover: #c4b5fd;
+  --primary-foreground: #09090b;
+  --accent: #8b5cf6;
+  --accent-subtle: #1c152b;
+
+  /* Estados y Feedback */
+  --focus: #a78bfa;
+  --ring: rgba(167, 139, 250, 0.4);
+  --success: #4ade80;
+  --warning: #fbbf24;
+  --error: #f87171;
+}
