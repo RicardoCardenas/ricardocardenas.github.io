@@ -6,7 +6,7 @@ test.describe('Navegación e Interacción del Portafolio', () => {
 
     // Verifica el título y nombre profesional
     await expect(page).toHaveTitle(/Ricardo Cardenas/i);
-    await expect(page.getByRole('heading', { level: 1 })).toContainText('Ricardo Fernando Cardenas Minaya');
+    await expect(page.getByRole('heading', { level: 1 })).toContainText('Ricardo Cardenas');
 
     // Navega al catálogo de proyectos
     await page.getByRole('link', { name: /catálogo completo|view.*projects|ver los 8 proyectos/i }).first().click();

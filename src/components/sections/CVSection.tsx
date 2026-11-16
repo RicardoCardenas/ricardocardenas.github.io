@@ -59,8 +59,8 @@ export function CVSection({ lang }: CVSectionProps) {
 
             <div className="pt-2">
               <a
-                href="/cv/CV_Ricardo_Cardenas_Minaya-Software.pdf"
-                download="CV_Ricardo_Cardenas_Minaya-Software.pdf"
+                href="/cv/CV_Ricardo_Cardenas_Software_Backend.pdf"
+                download="CV_Ricardo_Cardenas_Software_Backend.pdf"
                 className="w-full"
               >
                 <Button variant="primary" size="md" className="w-full gap-2 text-xs font-semibold h-10 shadow-xs">

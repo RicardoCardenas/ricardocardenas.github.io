@@ -10,10 +10,11 @@ export interface FeaturedProjectsSectionProps {
 }
 
 export function FeaturedProjectsSection({ lang }: FeaturedProjectsSectionProps) {
-  // Obtenemos los 4 proyectos destacados verificados
-  const featured = verifiedProjects
-    .filter((p) => p.featured)
-    .sort((a, b) => a.order - b.order);
+  // Orden de prioridad explícito aprobado: 1. Capital Cruise, 2. Nexo, 3. TaleStar Mobile, 4. TheLook
+  const priorityIds = ['capital-cruise', 'nexo', 'talestar-mobile', 'thelook-pipeline'];
+  const featured = priorityIds
+    .map((id) => verifiedProjects.find((p) => p.id === id))
+    .filter((p): p is typeof verifiedProjects[0] => p !== undefined);
 
   return (
     <section

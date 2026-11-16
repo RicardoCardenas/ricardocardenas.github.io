@@ -1,4 +1,14 @@
-import { Code2, Compass, GraduationCap, Languages, Sparkles, CheckCircle2 } from 'lucide-react';
+import {
+  Code2,
+  GraduationCap,
+  Languages,
+  Sparkles,
+  CheckCircle2,
+  Briefcase,
+  Compass,
+  Layers,
+  Terminal,
+} from 'lucide-react';
 import { SectionHeader } from '../ui/SectionHeader';
 import { Badge } from '../ui/Badge';
 import { verifiedProfile } from '../../data/profile';
@@ -22,114 +32,182 @@ export function AboutSection({ lang }: AboutSectionProps) {
 
       {/* Composición Editorial en 2 Columnas Asimétricas */}
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Columna Principal Editorial (7 columnas) */}
-        <div className="lg:col-span-7 space-y-6">
-          <div className="prose text-text-secondary text-base leading-relaxed space-y-4">
-            <p>
-              {lang === 'es'
-                ? 'Concibo el desarrollo de software como una disciplina de modelado formal. Frente a la complejidad de las reglas de negocio, aplico principios arquitectónicos claros para mantener el código mantenible y resistente a la deuda técnica.'
-                : 'I approach software development as a formal modeling discipline. Facing complex business domains, I enforce clear architectural boundaries to keep codebases resilient and free from technical debt.'}
-            </p>
-          </div>
-
-          {/* Tres Pilares Técnicos Editoriales */}
-          <div className="space-y-4 pt-2">
-            <div className="flex items-start gap-3.5 p-3.5 rounded-xl border border-border/80 bg-surface/60">
-              <Compass className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-              <div className="space-y-0.5">
-                <h3 className="text-sm font-semibold text-text-primary">
-                  Domain-Driven Design (DDD)
-                </h3>
-                <p className="text-xs text-text-secondary leading-normal">
-                  {lang === 'es'
-                    ? 'Aislamiento de la lógica de dominio en Bounded Contexts independientes, agregados consistentes y desacoplamiento de frameworks o detalles de infraestructura.'
-                    : 'Encapsulating domain logic into independent Bounded Contexts, consistent aggregates, and complete isolation from infrastructure concerns.'}
-                </p>
+        {/* Columna Izquierda: Tarjeta Visual de Principios de Ingeniería y Craftsmanship (5 columnas) */}
+        <div className="lg:col-span-5 space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl border border-primary/25 bg-gradient-to-br from-surface via-surface to-primary/5 space-y-5 shadow-2xs">
+            <div className="flex items-center justify-between gap-2 border-b border-border/60 pb-3">
+              <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                <Terminal className="h-4 w-4" />
+                <span>{lang === 'es' ? 'Filosofía de Ingeniería' : 'Engineering Philosophy'}</span>
               </div>
+              <Badge variant="accent" className="font-semibold text-[11px] px-2 py-0.5">
+                Core Principles
+              </Badge>
             </div>
 
-            <div className="flex items-start gap-3.5 p-3.5 rounded-xl border border-border/80 bg-surface/60">
-              <Sparkles className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-              <div className="space-y-0.5">
-                <h3 className="text-sm font-semibold text-text-primary">
-                  {lang === 'es' ? 'Persistencia Políglota Estratégica' : 'Strategic Polyglot Persistence'}
-                </h3>
-                <p className="text-xs text-text-secondary leading-normal">
-                  {lang === 'es'
-                    ? 'Modelado relacional con PostgreSQL para transacciones críticas, extensiones vectoriales (pgvector) para recuperación semántica y grafos (Neo4j) para redes de relaciones complejas.'
-                    : 'Relational modeling with PostgreSQL for transactional integrity, vector extensions (pgvector) for semantic retrieval, and graphs (Neo4j) for relationship networks.'}
-                </p>
+            {/* Tres Pilares Técnicos Editoriales */}
+            <div className="space-y-3.5">
+              <div className="flex items-start gap-3 p-3 rounded-xl border border-border/70 bg-surface/80">
+                <Compass className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <div className="space-y-0.5 min-w-0">
+                  <h3 className="text-xs font-bold text-text-primary">
+                    Domain-Driven Design (DDD)
+                  </h3>
+                  <p className="text-[11px] text-text-secondary leading-snug">
+                    {lang === 'es'
+                      ? 'Bounded Contexts independientes, agregados consistentes y desacoplamiento de frameworks o infraestructura.'
+                      : 'Independent Bounded Contexts, consistent aggregates, and complete isolation from infrastructure concerns.'}
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-start gap-3.5 p-3.5 rounded-xl border border-border/80 bg-surface/60">
-              <Code2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-              <div className="space-y-0.5">
-                <h3 className="text-sm font-semibold text-text-primary">
-                  {lang === 'es' ? 'Cultura de Calidad Verificable' : 'Verifiable Quality Culture'}
-                </h3>
-                <p className="text-xs text-text-secondary leading-normal">
-                  {lang === 'es'
-                    ? 'Pruebas unitarias, de integración y end-to-end (Pytest, Vitest, xUnit, Playwright) integradas en pipelines automatizados como criterio inmutable de entrega.'
-                    : 'Unit, integration, and end-to-end automated suites (Pytest, Vitest, xUnit, Playwright) embedded into CI pipelines as non-negotiable acceptance gates.'}
-                </p>
+              <div className="flex items-start gap-3 p-3 rounded-xl border border-border/70 bg-surface/80">
+                <Sparkles className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <div className="space-y-0.5 min-w-0">
+                  <h3 className="text-xs font-bold text-text-primary">
+                    {lang === 'es' ? 'Persistencia Políglota Estratégica' : 'Strategic Polyglot Persistence'}
+                  </h3>
+                  <p className="text-[11px] text-text-secondary leading-snug">
+                    {lang === 'es'
+                      ? 'PostgreSQL para integridad ACID, extensiones vectoriales (pgvector) y grafos (Neo4j) para relaciones complejas.'
+                      : 'PostgreSQL for ACID integrity, vector extensions (pgvector), and graphs (Neo4j) for deep entity relationships.'}
+                  </p>
+                </div>
+              </div>
+
+              <div className="flex items-start gap-3 p-3 rounded-xl border border-border/70 bg-surface/80">
+                <Code2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+                <div className="space-y-0.5 min-w-0">
+                  <h3 className="text-xs font-bold text-text-primary">
+                    {lang === 'es' ? 'Cultura de Calidad Verificable' : 'Verifiable Quality Culture'}
+                  </h3>
+                  <p className="text-[11px] text-text-secondary leading-snug">
+                    {lang === 'es'
+                      ? 'Suites automatizadas (Pytest, Vitest, xUnit, Playwright) integradas en CI como criterio inmutable de entrega.'
+                      : 'Automated suites (Pytest, Vitest, xUnit, Playwright) integrated in CI pipelines as strict acceptance gates.'}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Columna Lateral de Formación e Idiomas (5 columnas) */}
-        <div className="lg:col-span-5 space-y-5">
-          {/* Ficha Académica UPC */}
-          <div className="p-5 rounded-2xl border border-primary/25 bg-gradient-to-br from-primary/5 via-surface to-surface space-y-4 shadow-2xs">
-            <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 text-primary font-semibold text-sm">
-                <GraduationCap className="h-5 w-5" />
-                <span>{lang === 'es' ? 'Formación Universitaria' : 'University Education'}</span>
-              </div>
-              <Badge variant="accent" className="font-semibold text-xs px-2.5 py-0.5">
-                {verifiedProfile.university.distinction[lang]}
-              </Badge>
-            </div>
-
-            <div className="space-y-1">
-              <h3 className="text-base font-bold text-text-primary">
-                {verifiedProfile.university.name}
-              </h3>
-              <p className="text-sm font-semibold text-primary">
-                {verifiedProfile.university.program[lang]}
-              </p>
-              <p className="text-xs text-text-muted font-mono pt-0.5">
-                {verifiedProfile.university.currentSemester} • {verifiedProfile.university.period}
-              </p>
-            </div>
-
-            <div className="pt-2 border-t border-border/60 text-xs text-text-secondary space-y-1.5">
-              <p className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-success shrink-0" />
-                <span>{lang === 'es' ? 'Rendimiento académico en el 10% superior' : 'Top 10% academic standing (Décimo Superior)'}</span>
-              </p>
-              <p className="flex items-center gap-2">
-                <CheckCircle2 className="h-3.5 w-3.5 text-success shrink-0" />
-                <span>{lang === 'es' ? 'Tesis de titulación en Agentic GraphRAG' : 'Graduation thesis in Agentic GraphRAG'}</span>
-              </p>
-            </div>
+        {/* Columna Derecha: Bio Editorial + 4 Fichas Estructuradas (7 columnas) */}
+        <div className="lg:col-span-7 space-y-6">
+          <div className="prose text-text-secondary text-base leading-relaxed space-y-3">
+            <p>
+              {lang === 'es'
+                ? 'Concibo el desarrollo de software como una disciplina de modelado formal. Frente a la complejidad de las reglas de negocio, aplico principios arquitectónicos claros para mantener el código mantenible, resistente a la deuda técnica y preparado para evolucionar sin fricción.'
+                : 'I approach software development as a formal modeling discipline. Facing complex business domains, I enforce clear architectural boundaries to keep codebases resilient, testable, and free from accumulating technical debt.'}
+            </p>
+            <p className="text-sm text-text-muted">
+              {lang === 'es'
+                ? 'Mi trayectoria abarca desde microservicios backend en Java Spring Boot y .NET 9 con arquitecturas limpias y CQRS, hasta pipelines analíticos con Google Cloud BigQuery e interfaces móviles nativas en Flutter.'
+                : 'My background spans backend microservices in Java Spring Boot and .NET 9 with clean architecture and CQRS, analytical data pipelines with Google Cloud BigQuery, and cross-platform mobile apps in Flutter.'}
+            </p>
           </div>
 
-          {/* Bloque de Idiomas */}
-          <div className="p-4 rounded-xl border border-border/80 bg-surface space-y-3">
-            <div className="flex items-center gap-2 text-text-primary font-semibold text-xs uppercase tracking-wider">
-              <Languages className="h-4 w-4 text-primary" />
-              <span>{lang === 'es' ? 'Competencia Lingüística' : 'Language Proficiency'}</span>
+          {/* 4 Fichas Estructuradas en Grid 2x2 */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Ficha 1: Formación */}
+            <div className="p-4 rounded-xl border border-primary/25 bg-surface/80 space-y-2 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-primary font-bold text-xs">
+                  <GraduationCap className="h-4 w-4" />
+                  <span>{lang === 'es' ? 'Formación' : 'Education'}</span>
+                </div>
+                <Badge variant="accent" className="text-[10px] px-2 py-0.2">
+                  {verifiedProfile.university.distinction[lang]}
+                </Badge>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-text-primary">
+                  {verifiedProfile.university.name}
+                </p>
+                <p className="text-[11px] text-text-secondary">
+                  {verifiedProfile.university.program[lang]} ({verifiedProfile.university.currentSemester})
+                </p>
+              </div>
+              <div className="pt-1 text-[11px] text-text-muted flex items-center gap-1.5">
+                <CheckCircle2 className="h-3 w-3 text-success shrink-0" />
+                <span>{lang === 'es' ? 'Rendimiento en el 10% superior' : 'Top 10% academic standing'}</span>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-              {verifiedProfile.languages.map((l) => (
-                <div key={l.language.en} className="p-2.5 rounded-lg border border-border/60 bg-surface-muted/50 flex flex-col gap-0.5">
-                  <span className="font-semibold text-text-primary">{l.language[lang]}</span>
-                  <span className="text-text-muted text-[11px]">{l.proficiency[lang]}</span>
+            {/* Ficha 2: Enfoque Técnico */}
+            <div className="p-4 rounded-xl border border-border/80 bg-surface/80 space-y-2 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-primary font-bold text-xs">
+                  <Layers className="h-4 w-4" />
+                  <span>{lang === 'es' ? 'Enfoque Técnico' : 'Technical Focus'}</span>
                 </div>
-              ))}
+                <Badge variant="outline" className="text-[10px] px-2 py-0.2">
+                  Backend & Data
+                </Badge>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-text-primary">
+                  {lang === 'es' ? 'Sistemas Distribuidos' : 'Distributed Systems'}
+                </p>
+                <p className="text-[11px] text-text-secondary">
+                  Java Spring Boot • .NET 9 • Python FastAPI
+                </p>
+              </div>
+              <div className="pt-1 text-[11px] text-text-muted flex items-center gap-1.5">
+                <CheckCircle2 className="h-3 w-3 text-primary shrink-0" />
+                <span>{lang === 'es' ? 'DDD, CQRS & Cloud Architecture' : 'DDD, CQRS & Cloud Architecture'}</span>
+              </div>
+            </div>
+
+            {/* Ficha 3: Disponibilidad */}
+            <div className="p-4 rounded-xl border border-border/80 bg-surface/80 space-y-2 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-primary font-bold text-xs">
+                  <Briefcase className="h-4 w-4" />
+                  <span>{lang === 'es' ? 'Disponibilidad' : 'Availability'}</span>
+                </div>
+                <span className="inline-flex items-center gap-1 text-[10px] text-success font-semibold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-success animate-pulse" />
+                  <span>{lang === 'es' ? 'Activa' : 'Active'}</span>
+                </span>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-text-primary">
+                  {lang === 'es' ? 'Prácticas Preprofesionales' : 'Pre-Professional Internships'}
+                </p>
+                <p className="text-[11px] text-text-secondary">
+                  {lang === 'es' ? 'Lima, Perú / Modalidad Remota' : 'Lima, Peru / Remote Mode'}
+                </p>
+              </div>
+              <div className="pt-1 text-[11px] text-text-muted flex items-center gap-1.5">
+                <CheckCircle2 className="h-3 w-3 text-success shrink-0" />
+                <span>{lang === 'es' ? 'Convenio de Prácticas UPC' : 'UPC Internship Agreement'}</span>
+              </div>
+            </div>
+
+            {/* Ficha 4: Idiomas */}
+            <div className="p-4 rounded-xl border border-border/80 bg-surface/80 space-y-2 shadow-2xs">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-1.5 text-primary font-bold text-xs">
+                  <Languages className="h-4 w-4" />
+                  <span>{lang === 'es' ? 'Idiomas' : 'Languages'}</span>
+                </div>
+                <Badge variant="outline" className="text-[10px] px-2 py-0.2">
+                  Bilingüe
+                </Badge>
+              </div>
+              <div>
+                <p className="text-xs font-bold text-text-primary">
+                  {lang === 'es' ? 'Español & Inglés' : 'Spanish & English'}
+                </p>
+                <p className="text-[11px] text-text-secondary">
+                  {lang === 'es' ? 'Español (Nativo) • Inglés (Avanzado B2)' : 'Spanish (Native) • English (Advanced B2)'}
+                </p>
+              </div>
+              <div className="pt-1 text-[11px] text-text-muted flex items-center gap-1.5">
+                <CheckCircle2 className="h-3 w-3 text-primary shrink-0" />
+                <span>{lang === 'es' ? 'Comunicación técnica fluida' : 'Fluent technical communication'}</span>
+              </div>
             </div>
           </div>
         </div>

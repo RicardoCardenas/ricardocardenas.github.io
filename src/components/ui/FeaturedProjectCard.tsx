@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ExternalLink, ArrowRight, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { ExternalLink, ArrowRight, ShieldCheck, CheckCircle2, Network, ImageOff } from 'lucide-react';
 import type { ProjectCaseStudy } from '../../types';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from './Card';
 import { Badge } from './Badge';
@@ -19,14 +20,75 @@ export function FeaturedProjectCard({
   index,
   className,
 }: FeaturedProjectCardProps) {
+  const [imageError, setImageError] = useState(false);
+
   return (
     <Card
       className={cn(
-        'group flex flex-col justify-between transition-all duration-200 hover:border-primary/50 hover:shadow-md',
+        'group flex flex-col justify-between overflow-hidden transition-all duration-200 hover:border-primary/50 hover:shadow-md',
         project.isAcademicThesis && 'border-primary/30',
         className
       )}
     >
+      {/* 1. Visual Preview Banner Superior */}
+      {project.isAcademicThesis ? (
+        /* Topología abstracta para Nexo (Tesis UPC privada - sin fotos ni datos sensibles) */
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-gradient-to-br from-primary/10 via-surface-elevated to-primary/5 border-b border-border/60 flex items-center justify-center p-4 select-none">
+          <svg viewBox="0 0 320 180" className="w-full h-full text-primary/40" fill="none" stroke="currentColor">
+            {/* Aristas del grafo */}
+            <line x1="80" y1="90" x2="160" y2="45" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="80" y1="90" x2="160" y2="135" strokeWidth="1.5" strokeDasharray="3 3" />
+            <line x1="160" y1="45" x2="240" y2="90" strokeWidth="1.5" />
+            <line x1="160" y1="135" x2="240" y2="90" strokeWidth="1.5" />
+            {/* Nodos */}
+            <circle cx="80" cy="90" r="22" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
+            <circle cx="160" cy="45" r="20" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
+            <circle cx="160" cy="135" r="20" className="fill-surface stroke-primary/60" strokeWidth="1.5" />
+            <circle cx="240" cy="90" r="24" className="fill-primary/20 stroke-primary" strokeWidth="2" />
+            {/* Etiquetas de nodos */}
+            <text x="80" y="93" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">Postgres</text>
+            <text x="160" y="48" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">Neo4j</text>
+            <text x="160" y="138" textAnchor="middle" className="text-[10px] fill-text-primary font-mono font-medium" stroke="none">pgvector</text>
+            <text x="240" y="93" textAnchor="middle" className="text-[10px] fill-primary font-mono font-bold" stroke="none">LangGraph</text>
+          </svg>
+
+          <div className="absolute top-2.5 right-2.5 flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface/90 border border-primary/30 text-[10px] font-semibold text-primary backdrop-blur-xs shadow-2xs">
+            <Network className="h-3 w-3 text-primary shrink-0" />
+            <span>Agentic GraphRAG</span>
+          </div>
+
+          <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 px-2 py-0.5 rounded-md bg-surface/85 border border-border/80 text-[10px] font-mono text-text-muted backdrop-blur-xs">
+            <span>FastAPI Monolith • Polyglot Persistence</span>
+          </div>
+        </div>
+      ) : project.coverImage && !imageError ? (
+        /* Captura o diagrama técnico verificado */
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-surface-muted/60 border-b border-border/60">
+          <img
+            src={project.coverImage}
+            alt={project.title}
+            onError={() => setImageError(true)}
+            loading="lazy"
+            className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface/80 via-transparent to-transparent opacity-50" />
+          {index !== undefined ? (
+            <div className="absolute top-2.5 right-2.5 px-2 py-0.5 rounded-md bg-surface/90 border border-border/80 font-mono text-[10px] text-text-muted backdrop-blur-xs font-semibold">
+              0{index + 1}
+            </div>
+          ) : null}
+        </div>
+      ) : (
+        /* Fallback abstracto cuando no hay imagen disponible */
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-surface-muted/40 border-b border-border/60 flex items-center justify-center">
+          <div className="flex items-center gap-2 text-xs text-text-muted font-mono">
+            <ImageOff className="h-4 w-4" />
+            <span>{project.title}</span>
+          </div>
+        </div>
+      )}
+
+      {/* 2. Cabecera con Metadatos, Categorías y Título */}
       <CardHeader className="space-y-3 pb-3">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <div className="flex flex-wrap items-center gap-1.5">
@@ -49,10 +111,6 @@ export function FeaturedProjectCard({
               <ShieldCheck className="h-3 w-3" />
               <span>{lang === 'es' ? 'Tesis UPC' : 'UPC Thesis'}</span>
             </Badge>
-          ) : index !== undefined ? (
-            <span className="text-xs font-mono text-text-muted">
-              0{index + 1}
-            </span>
           ) : null}
         </div>
 
@@ -72,6 +130,7 @@ export function FeaturedProjectCard({
         </p>
       </CardHeader>
 
+      {/* 3. Contenido: Aporte Principal y Tecnologías */}
       <CardContent className="space-y-4 pt-0">
         {project.contributions[lang] && project.contributions[lang].length > 0 ? (
           <div className="space-y-1.5 border-t border-border/60 pt-3">
@@ -102,9 +161,10 @@ export function FeaturedProjectCard({
         </div>
       </CardContent>
 
+      {/* 4. Footer: Enlace al Caso de Estudio y Código / Enlace Externo */}
       <CardFooter className="pt-3 border-t border-border/60 flex flex-wrap items-center justify-between gap-2">
-        <Link to={`/projects/${project.slug}`}>
-          <Button variant="ghost" size="sm" className="gap-1.5 p-0 text-primary text-xs hover:text-primary-hover font-medium">
+        <Link to={`/projects/${project.slug}`} className="inline-flex items-center">
+          <Button variant="ghost" size="sm" className="gap-1.5 p-0 text-primary text-xs hover:text-primary-hover font-semibold">
             <span>{lang === 'es' ? 'Ver caso de estudio' : 'Read case study'}</span>
             <ArrowRight className="h-3.5 w-3.5 group-hover:translate-x-0.5 transition-transform duration-150" />
           </Button>
@@ -124,7 +184,7 @@ export function FeaturedProjectCard({
           </a>
         ) : project.isPrivateCode ? (
           <div
-            className="flex items-center gap-1 text-[11px] text-text-muted italic px-2 py-1 rounded bg-surface-muted/60 border border-border/40"
+            className="flex items-center gap-1 text-[11px] text-text-muted italic px-2 py-1 rounded bg-surface-muted/60 border border-border/40 select-none"
             title={lang === 'es' ? 'Código privado por reserva de investigación' : 'Private codebase for thesis research'}
           >
             <ShieldCheck className="h-3 w-3 text-warning" />

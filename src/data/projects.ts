@@ -444,6 +444,8 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         'Synchronizing OpenAPI contracts between the Java backend and Vue 3 frontend to enforce bimonetary type consistency.',
       ],
     },
+    coverImage: '/images/projects/capital-cruise-db.png',
+    galleryImages: ['/images/projects/capital-cruise-db.png'],
     technologies: [
       'Java 21',
       'Spring Boot 3.5',
@@ -618,6 +620,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'lib/core/security y GoRouter redirect guards',
       },
     ],
+    coverImage: '/images/projects/talestar-ar.png',
     galleryImages: [
       '/images/projects/talestar-ar.png',
       '/images/projects/talestar-home.png',
@@ -1044,6 +1047,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'BigQuery ML ML.FORECAST output',
       },
     ],
+    coverImage: '/images/projects/thelook-dashboard.png',
     galleryImages: [
       '/images/projects/thelook-dashboard.png',
       '/images/projects/thelook-diagram-er.png',

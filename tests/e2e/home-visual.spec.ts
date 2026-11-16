@@ -12,7 +12,8 @@ test.beforeAll(() => {
 
 test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   // 1. Desktop 1440px - Modo Claro
-  test('captura Home Desktop en Modo Claro (1440px)', async ({ page }) => {
+  test('captura Home Desktop en Modo Claro (1440px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Desktop screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ colorScheme: 'light' });
 
@@ -57,7 +58,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 2. Desktop 1440px - Modo Oscuro
-  test('captura Home Desktop en Modo Oscuro (1440px)', async ({ page }) => {
+  test('captura Home Desktop en Modo Oscuro (1440px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Desktop screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ colorScheme: 'dark' });
 
@@ -103,7 +105,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 3. Tablet 768px - Modo Claro
-  test('captura Home Tablet en Modo Claro (768px)', async ({ page }) => {
+  test('captura Home Tablet en Modo Claro (768px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Tablet screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 768, height: 1024 });
     await page.emulateMedia({ colorScheme: 'light' });
 
@@ -132,7 +135,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 4. Mobile 390px - Modo Claro
-  test('captura Home Móvil en Modo Claro (390px)', async ({ page }) => {
+  test('captura Home Móvil en Modo Claro (390px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Desktop Chrome', 'Mobile screenshot handled by Mobile Chrome project');
     await page.setViewportSize({ width: 390, height: 844 });
     await page.emulateMedia({ colorScheme: 'light' });
 
@@ -168,7 +172,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 5. Mobile 390px - Modo Oscuro
-  test('captura Home Móvil en Modo Oscuro (390px)', async ({ page }) => {
+  test('captura Home Móvil en Modo Oscuro (390px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Desktop Chrome', 'Mobile screenshot handled by Mobile Chrome project');
     await page.setViewportSize({ width: 390, height: 844 });
     await page.emulateMedia({ colorScheme: 'dark' });
 
@@ -222,7 +227,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 7. Projects Catalog Desktop 1440px - Modo Claro
-  test('captura Catálogo Desktop en Modo Claro (1440px)', async ({ page }) => {
+  test('captura Catálogo Desktop en Modo Claro (1440px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Desktop catalog screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ colorScheme: 'light' });
 
@@ -245,7 +251,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 8. Projects Catalog Desktop 1440px - Modo Oscuro
-  test('captura Catálogo Desktop en Modo Oscuro (1440px)', async ({ page }) => {
+  test('captura Catálogo Desktop en Modo Oscuro (1440px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Desktop catalog screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ colorScheme: 'dark' });
 
@@ -268,7 +275,8 @@ test.describe('Revisión Visual y Verificación de Tema de la Home', () => {
   });
 
   // 9. Project Detail (Nexo) Desktop 1440px - Modo Oscuro
-  test('captura Detalle Nexo Desktop en Modo Oscuro (1440px)', async ({ page }) => {
+  test('captura Detalle Nexo Desktop en Modo Oscuro (1440px)', async ({ page }, testInfo) => {
+    test.skip(testInfo.project.name === 'Mobile Chrome', 'Desktop detail screenshot handled by Desktop Chrome project');
     await page.setViewportSize({ width: 1440, height: 900 });
     await page.emulateMedia({ colorScheme: 'dark' });
 
