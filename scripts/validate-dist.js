@@ -21,28 +21,129 @@ if (!fs.existsSync(distDir)) {
   process.exit(1);
 }
 
-// 2. Verificar las 11 rutas HTML prerenderizadas
+// 2. Verificar las 11 rutas HTML prerenderizadas y su contenido sustantivo
 const expectedRoutes = [
-  'index.html',
-  path.join('projects', 'index.html'),
-  path.join('projects', 'nexo-agentic-graphrag', 'index.html'),
-  path.join('projects', 'capital-cruise', 'index.html'),
-  path.join('projects', 'talestar-mobile', 'index.html'),
-  path.join('projects', 'meditrack-iot-health', 'index.html'),
-  path.join('projects', 'thelook-ecommerce-pipeline', 'index.html'),
-  path.join('projects', 'customer-churn-analytics', 'index.html'),
-  path.join('projects', 'jobsy-backend', 'index.html'),
-  path.join('projects', 'onecoin-backend', 'index.html'),
-  '404.html',
+  {
+    relPath: 'index.html',
+    expectedH1: /Ricardo Cardenas/i,
+    expectedTitle: /Ricardo Cardenas/i,
+    expectedMetaDesc: /Ricardo Cardenas/i,
+    expectedJsonLdType: 'Person',
+  },
+  {
+    relPath: path.join('projects', 'index.html'),
+    expectedH1: /Catálogo|Projects|Proyectos/i,
+    expectedTitle: /Catálogo|Projects|Proyectos/i,
+    expectedMetaDesc: /proyectos|projects/i,
+    expectedJsonLdType: 'CollectionPage',
+  },
+  {
+    relPath: path.join('projects', 'nexo-agentic-graphrag', 'index.html'),
+    expectedH1: /Nexo/i,
+    expectedTitle: /Nexo/i,
+    expectedMetaDesc: /Nexo/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'capital-cruise', 'index.html'),
+    expectedH1: /Capital Cruise/i,
+    expectedTitle: /Capital Cruise/i,
+    expectedMetaDesc: /Capital Cruise/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'talestar-mobile', 'index.html'),
+    expectedH1: /Talestar/i,
+    expectedTitle: /Talestar/i,
+    expectedMetaDesc: /Talestar/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'meditrack-iot-health', 'index.html'),
+    expectedH1: /MediTrack/i,
+    expectedTitle: /MediTrack/i,
+    expectedMetaDesc: /MediTrack/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'thelook-ecommerce-pipeline', 'index.html'),
+    expectedH1: /TheLook/i,
+    expectedTitle: /TheLook/i,
+    expectedMetaDesc: /TheLook/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'customer-churn-analytics', 'index.html'),
+    expectedH1: /Customer Churn/i,
+    expectedTitle: /Customer Churn/i,
+    expectedMetaDesc: /Customer Churn/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'jobsy-backend', 'index.html'),
+    expectedH1: /Jobsy/i,
+    expectedTitle: /Jobsy/i,
+    expectedMetaDesc: /Jobsy/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: path.join('projects', 'onecoin-backend', 'index.html'),
+    expectedH1: /OneCoin/i,
+    expectedTitle: /OneCoin/i,
+    expectedMetaDesc: /OneCoin/i,
+    expectedJsonLdType: 'TechArticle',
+  },
+  {
+    relPath: '404.html',
+    expectedH1: /404/i,
+    expectedTitle: /404/i,
+    expectedMetaDesc: /no existe|not exist/i,
+    expectedJsonLdType: null,
+  },
 ];
 
-for (const relPath of expectedRoutes) {
+for (const { relPath, expectedH1, expectedTitle, expectedMetaDesc, expectedJsonLdType } of expectedRoutes) {
   const fullPath = path.join(distDir, relPath);
   const exists = fs.existsSync(fullPath);
   assert(exists, `Ruta HTML prerenderizada existe: ${relPath}`);
   if (exists) {
     const size = fs.statSync(fullPath).size;
     assert(size > 1000, `Tamaño adecuado en ${relPath} (${(size / 1024).toFixed(1)} KB)`);
+
+    const html = fs.readFileSync(fullPath, 'utf8');
+
+    // Validación de integridad estructural HTML
+    assert(html.includes('<!DOCTYPE html>'), `Estructura DOCTYPE válida en ${relPath}`);
+    assert(html.includes('<div id="root">'), `Contenedor #root presente en ${relPath}`);
+    assert(!/<div id="root">\s*<\/div>/.test(html), `Contenido sustantivo prerenderizado dentro de #root (no vacío) en ${relPath}`);
+
+    // Validación de título
+    const titleMatch = html.match(/<title>([^<]+)<\/title>/i);
+    assert(Boolean(titleMatch && expectedTitle.test(titleMatch[1])), `Tag <title> sustantivo alineado en ${relPath}`);
+
+    // Validación de encabezado h1
+    const h1Match = html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/i);
+    assert(Boolean(h1Match && expectedH1.test(h1Match[1])), `Encabezado <h1> sustantivo alineado en ${relPath}`);
+
+    // Validación de meta description
+    const descMatch = html.match(/<meta[^>]*name="description"[^>]*content="([^"]+)"/i);
+    assert(Boolean(descMatch && descMatch[1].trim().length >= 30), `Meta description presente y sustantiva en ${relPath} (${descMatch ? descMatch[1].length : 0} caracteres)`);
+
+    // Validación de canonical link
+    const canonicalMatch = html.match(/<link[^>]*rel="canonical"[^>]*href="([^"]+)"/i);
+    assert(Boolean(canonicalMatch), `Tag canonical presente en ${relPath}`);
+
+    // Validación de structured data JSON-LD (cuando aplique)
+    if (expectedJsonLdType) {
+      assert(html.includes('"@type"') && html.includes(expectedJsonLdType), `JSON-LD Schema.org de tipo ${expectedJsonLdType} presente en ${relPath}`);
+    }
+
+    // Validación de referencias a assets CSS y JS en disco
+    const assetMatches = [...html.matchAll(/(?:href|src)="(\/assets\/[^"]+)"/g)].map(m => m[1]);
+    for (const assetRef of assetMatches) {
+      const diskAsset = path.join(distDir, assetRef.replace(/^\//, ''));
+      assert(fs.existsSync(diskAsset), `Asset referenciado existe en dist/: ${assetRef}`);
+    }
   }
 }
 

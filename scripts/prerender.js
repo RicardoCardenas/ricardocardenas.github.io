@@ -1,6 +1,5 @@
 import { chromium } from '@playwright/test';
-import { spawn } from 'child_process';
-import http from 'http';
+import { preview } from 'vite';
 import fs from 'fs';
 import path from 'path';
 
@@ -21,63 +20,64 @@ const routes = [
 async function prerender() {
   console.log('--- Iniciando Prerenderizado Estático de Rutas Conocidas (SSG) ---');
 
-  // 1. Iniciar servidor Vite preview temporal en puerto 4173
-  const preview = spawn('npx', ['vite', 'preview', '--port', '4173'], {
-    stdio: 'ignore',
-    shell: true,
-  });
+  const PRERENDER_PORT = Number(process.env.PRERENDER_PORT) || 4173;
+  let server;
+  let browser;
 
-  // Esperar a que el servidor responda
-  await new Promise((resolve) => {
-    const check = () => {
-      http.get('http://localhost:4173/', (res) => {
-        if (res.statusCode === 200) {
-          resolve(true);
-        } else {
-          setTimeout(check, 250);
-        }
-      }).on('error', () => {
-        setTimeout(check, 250);
-      });
-    };
-    check();
-  });
+  try {
+    // 1. Iniciar servidor Vite preview programático en puerto local de prerenderizado
+    server = await preview({
+      preview: {
+        port: PRERENDER_PORT,
+      },
+    });
 
-  console.log('Servidor preview listo. Lanzando navegador headless...');
-  const browser = await chromium.launch({ headless: true });
-  const context = await browser.newContext();
-  const page = await context.newPage();
+    console.log(`Servidor preview listo en http://localhost:${PRERENDER_PORT}/. Lanzando navegador headless...`);
+    browser = await chromium.launch({ headless: true });
+    const context = await browser.newContext();
+    const page = await context.newPage();
 
-  for (const { path: routePath, outDir, fileName } of routes) {
-    const targetUrl = `http://localhost:4173${routePath}`;
-    console.log(`Prerenderizando ruta: ${routePath} -> ${path.join(outDir, fileName)}...`);
+    for (const { path: routePath, outDir, fileName } of routes) {
+      const targetUrl = `http://localhost:${PRERENDER_PORT}${routePath}`;
+      console.log(`Prerenderizando ruta: ${routePath} -> ${path.join(outDir, fileName)}...`);
 
-    await page.goto(targetUrl, { waitUntil: 'networkidle' });
-    // Breve pausa para asegurar que SEOHead y componentes reactivos terminen el ciclo de vida
-    await page.waitForTimeout(300);
+      await page.goto(targetUrl, { waitUntil: 'networkidle' });
+      // Breve pausa para asegurar que SEOHead y componentes reactivos terminen el ciclo de vida
+      await page.waitForTimeout(300);
 
-    const fullHtml = await page.content();
+      const fullHtml = await page.content();
 
-    // Asegurar directorio de destino
-    fs.mkdirSync(outDir, { recursive: true });
-    const targetFile = path.join(outDir, fileName);
-    fs.writeFileSync(targetFile, fullHtml, 'utf8');
+      // Asegurar directorio de destino
+      fs.mkdirSync(outDir, { recursive: true });
+      const targetFile = path.join(outDir, fileName);
+      fs.writeFileSync(targetFile, fullHtml, 'utf8');
 
-    // Generar también el archivo .html directo (ej: dist/projects.html, dist/projects/slug.html)
-    // para servidores estáticos que resuelven rutas limpias sin trailing slash
-    if (routePath !== '/' && routePath !== '/404') {
-      const cleanPath = routePath.replace(/^\//, '');
-      const flatFile = path.join('dist', `${cleanPath}.html`);
-      fs.mkdirSync(path.dirname(flatFile), { recursive: true });
-      fs.writeFileSync(flatFile, fullHtml, 'utf8');
+      // Generar también el archivo .html directo (ej: dist/projects.html, dist/projects/slug.html)
+      // para servidores estáticos que resuelven rutas limpias sin trailing slash
+      if (routePath !== '/' && routePath !== '/404') {
+        const cleanPath = routePath.replace(/^\//, '');
+        const flatFile = path.join('dist', `${cleanPath}.html`);
+        fs.mkdirSync(path.dirname(flatFile), { recursive: true });
+        fs.writeFileSync(flatFile, fullHtml, 'utf8');
+      }
+
+      const sizeKb = (fs.statSync(targetFile).size / 1024).toFixed(1);
+      console.log(`  ✓ Generado: ${targetFile} (${sizeKb} KB)`);
     }
 
-    const sizeKb = (fs.statSync(targetFile).size / 1024).toFixed(1);
-    console.log(`  ✓ Generado: ${targetFile} (${sizeKb} KB)`);
+    await browser.close();
+    browser = null;
+    await server.close();
+    server = null;
+    console.log('Servidor preview y navegador cerrados limpiamente. Sin procesos huérfanos.');
+  } finally {
+    if (browser) {
+      await browser.close().catch(() => {});
+    }
+    if (server) {
+      await server.close().catch(() => {});
+    }
   }
-
-  await browser.close();
-  preview.kill();
 
   // 2. Generar sitemap.xml y robots.txt dinámicamente según la configuración de dominio
   const siteUrl = (process.env.VITE_SITE_URL || 'http://localhost:4173').trim().replace(/\/$/, '');

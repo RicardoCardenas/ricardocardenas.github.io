@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemap XML canónico
-Sitemap: http://localhost:4173/sitemap.xml
+Sitemap: https://ricardocardenas.github.io/sitemap.xml
