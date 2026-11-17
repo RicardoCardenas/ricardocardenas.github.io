@@ -108,7 +108,7 @@ Una vez que el código esté en GitHub:
 2. Verás el flujo de trabajo en ejecución titulado **"Deploy to GitHub Pages"**.
 3. El flujo ejecutará las dos fases secuenciales:
    - **Build & Quality Gate:**
-     - Checkout & Node.js 20.
+     - Checkout & Node.js 24 LTS.
      - `npm run typecheck`
      - `npm run lint`
      - `npm run test`

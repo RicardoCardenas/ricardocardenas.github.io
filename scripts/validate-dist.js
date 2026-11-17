@@ -137,6 +137,18 @@ if (isCI) {
 
 // 8. Escaneo de Privacidad y Secretos en dist/
 const forbiddenTerms = ['api_key', 'private_key', 'BEGIN RSA'];
+
+// Mecanismo de prevención de filtraciones mediante configuración privada no versionada
+if (process.env.PRIVATE_ACADEMIC_BLOCKLIST) {
+  const customBlocked = process.env.PRIVATE_ACADEMIC_BLOCKLIST.split(',').map((s) => s.trim()).filter(Boolean);
+  forbiddenTerms.push(...customBlocked);
+}
+
+// Patrón contextualizado de prevención de filtraciones académicas:
+// Detecta combinaciones contextuales como "promedio ponderado: 17.x", "gpa = x.x", "nota final: 17",
+// evitando falsos positivos sobre métricas técnicas, porcentajes, latencias o estadísticas financieras legítimas.
+const contextualGradeRegex = /(?:promedio\s*(?:ponderado|acumulado|académico)?|gpa|nota\s*(?:ponderada|final)?)\s*[:=]\s*\d{1,2}(?:[.,]\d{1,2})?/i;
+
 let foundSecret = false;
 function scanFiles(dir) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -151,6 +163,11 @@ function scanFiles(dir) {
           foundSecret = true;
           errors++;
         }
+      }
+      if (contextualGradeRegex.test(c)) {
+        console.error(`  ❌ PATRÓN CONTEXTUALIZADO DE CALIFICACIÓN PRIVADA DETECTADO en ${full}`);
+        foundSecret = true;
+        errors++;
       }
     }
   }

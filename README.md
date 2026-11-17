@@ -49,7 +49,7 @@ Live Site: **[https://ricardocardenas.github.io/](https://ricardocardenas.github
 ## 💻 Getting Started & Local Development
 
 ### Prerequisites
-- Node.js 20.x or higher
+- Node.js 24.x LTS (compatible con Node 20+)
 - npm 10.x or higher
 
 ### Installation
