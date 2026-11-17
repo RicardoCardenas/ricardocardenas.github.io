@@ -112,3 +112,32 @@ Se adopta una pila tipográfica moderna con fallback a fuentes nativas del siste
 | **Modal / Sheet** | `opacity`, `transform: translateY(8px) -> translateY(0)` | `220ms` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrada fluida sin rebotes exagerados. |
 | **Acciones de Teclado** | Ninguna (0ms) | `0ms` | Inmediato | **Nunca animar acciones gatilladas por teclado** (ej. Command Palette o atajos). |
 | **Reduced Motion** | Solo `opacity` o `0ms` | `0ms` | `step-end` | Respetar rigurosamente `@media (prefers-reduced-motion: reduce)`. |
+
+---
+
+## 6. Identidad Visual de Marca y Simbología Gráfica
+
+A partir de la versión previa a publicación, se sustituyó el monograma tipográfico "RC" por un símbolo gráfico de identidad profesional moderno, tecnológico y representativo.
+
+### 6.1 Especificación del Símbolo de Marca
+
+- **Imagen Máster de Producción:** `public/images/brand/logo.png` (512×512 px) y `public/images/brand/logo.webp` (512×512 px, 26.6 kB).
+- **Cromática Integrada:** El símbolo presenta una dominante violeta `#7C3AED` / `#A78BFA` que se alinea naturalmente con el token semántico `--primary` del sistema de diseño, complementado con acentos cian/azules para profundidad visual.
+- **Filosofía de Renderizado:** Se sirve en raster de alta densidad optimizado (WebP con fallback PNG y `.ico` nativo multicapa) evitando la incrustación artificial de raster en SVG para garantizar fidelidad y rendimiento.
+
+### 6.2 Jerarquía de Variantes y Casos de Uso
+
+| Nivel / Rol | Archivos | Dimensiones Nativas | Dimensiones en UI | Contenedor y Comportamiento |
+|---|---|---|---|---|
+| **Favicon Tab** | `favicon-16x16.png`<br>`favicon-32x32.png`<br>`favicon.ico` | 16×16, 32×32, 48×48 | 16×16 / 32×32 | Pestaña de navegador, marcadores y accesos directos. |
+| **Touch Icon** | `apple-touch-icon.png` | 180×180 | 180×180 | Dispositivos iOS / iPadOS al anclar a pantalla de inicio. |
+| **Navbar Brand** | `logo-48.webp`<br>`logo-48.png` | 48×48 | 28×28 (Desktop)<br>24×24 (Mobile) | Contenedor cuadrado con `rounded-lg`, borde sutil y foco accesible. |
+| **Hero Avatar** | `logo-96.webp`<br>`logo-96.png` | 96×96 | 80×80 (Desktop)<br>80×80 (Mobile) | Avatar circular en `HeroSection` con `ring-2 ring-primary/20`. |
+| **High-DPI / PWA** | `logo-192.webp`<br>`logo-192.png` | 192×192 | 192×192 | Manifiesto de aplicación web y pantallas Retina. |
+| **Open Graph** | `public/images/og-image.png` | 1200×630 | 1200×630 | Imagen social generada con el nuevo símbolo gráfico incorporado. |
+
+### 6.3 Deprecación del Monograma Tipográfico RC
+
+- El archivo `public/favicon.svg` anterior (monograma de texto tipográfico "RC") ha sido retirado formalmente del repositorio.
+- Todas las menciones y renderizados del avatar o logo corporativo en `Navbar.tsx`, `MobileNavSheet.tsx`, `HeroSection.tsx` y `Avatar.tsx` ahora consumen exclusivamente los recursos gráficos oficiales de la marca.
+

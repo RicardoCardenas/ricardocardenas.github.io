@@ -30,7 +30,7 @@ export function Avatar({
     <div
       className={cn(
         'relative inline-flex items-center justify-center rounded-2xl select-none overflow-hidden',
-        'border border-primary/25 bg-surface shadow-xs transition-transform duration-200',
+        'border border-primary/25 bg-surface-elevated/90 shadow-xs transition-transform duration-200',
         sizeClasses[size],
         className
       )}
@@ -41,8 +41,8 @@ export function Avatar({
           src={src}
           alt={alt}
           onError={() => setImageError(true)}
-          className="h-full w-full object-cover rounded-2xl"
-          loading="lazy"
+          className="h-full w-full object-contain p-1 rounded-2xl"
+          loading="eager"
         />
       ) : (
         <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/20 via-primary/10 to-surface-elevated text-primary font-mono tracking-wider ring-1 ring-inset ring-primary/20">

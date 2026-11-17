@@ -15,7 +15,7 @@
 El presente inventario clasifica de forma rigurosa todos los recursos visuales, gráficos, capturas de pantalla, diagramas y documentos del entorno de desarrollo.
 
 En atención a las directrices explícitas del usuario, la gestión de activos se rige por tres principios inmutables:
-1. **Privacidad Personal:** Queda terminantemente prohibido incorporar fotografías personales, retratos familiares o imágenes sintéticas con apariencia humana al portafolio. Se preserva exclusivamente el monograma tipográfico corporativo "RC".
+1. **Privacidad Personal:** Queda terminantemente prohibido incorporar fotografías personales, retratos familiares o imágenes sintéticas con apariencia humana al portafolio. Se utiliza exclusivamente el símbolo gráfico oficial de identidad profesional de marca (`public/images/brand/logo.png`).
 2. **Privacidad Académica:** Queda terminantemente prohibido publicar promedios de calificaciones, notas individuales, historiales académicos o constancias de notas. Se permite únicamente la mención institucional consolidada de la carrera, ciclo y la distinción de **Décimo Superior / Top 10%**.
 3. **Confidencialidad de Tesis (Nexo):** Se mantiene el código fuente, la infraestructura interna y los datos privados de la tesis en UPC completamente protegidos y fuera del alcance público.
 
@@ -35,7 +35,7 @@ Recursos que ya forman parte del repositorio del portafolio y cumplen con todas 
 | `thelook-dashboard.png` | Imagen (PNG) | `public/images/projects/thelook-dashboard.png` | Dashboard ejecutivo en Looker Studio con métricas de 2.4M eventos, ventas y cohortes. | ✅ Integrado |
 | `thelook-diagram-er.png` | Diagrama (PNG) | `public/images/projects/thelook-diagram-er.png` | Diagrama de Modelo Relacional canónico en BigQuery (tablas de hechos y dimensiones). | ✅ Integrado |
 | `churn-dashboard.png` | Imagen (PNG) | `public/images/projects/churn-dashboard.png` | Dashboard de Business Intelligence en Power BI con segmentación K-Means y análisis DAX. | ✅ Integrado |
-| `favicon.svg` | Vector (SVG) | `public/favicon.svg` | Logotipo oficial con isotipo tipográfico "RC" en violeta corporativo `#7C3AED`. | ✅ Integrado |
+| `logo.png` / `logo.webp` | Imagen (PNG/WebP) | `public/images/brand/logo.png` | Logotipo y símbolo gráfico oficial de identidad profesional de marca (512×512 px) y variantes (192, 96, 48, favicons). | ✅ Integrado |
 | Capturas E2E (20 archivos) | Imagen (PNG) | `docs/reports/screenshots/*.png` | Capturas automatizadas de alta resolución (Light/Dark, 1440px, 768px, 390px) del catálogo, home y detalles. | ✅ Integrado |
 
 ---

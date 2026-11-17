@@ -29,9 +29,18 @@ def create_og_image():
         font_badge = ImageFont.load_default()
         font_logo = ImageFont.load_default()
 
-    # Monograma RC
-    draw.rounded_rectangle([80, 80, 144, 144], radius=14, fill=(124, 58, 237))
-    draw.text((95, 96), "RC", fill=(255, 255, 255), font=font_logo)
+    # Símbolo oficial de Identidad Visual (Logo)
+    logo_path = 'public/images/brand/logo.png'
+    if os.path.exists(logo_path):
+        logo_img = Image.open(logo_path).convert('RGBA')
+        logo_resized = logo_img.resize((68, 68), Image.Resampling.LANCZOS)
+        # Fondo redondeado sutil para integración perfecta en fondos oscuros
+        draw.rounded_rectangle([78, 78, 150, 150], radius=16, fill=(24, 24, 27), outline=(124, 58, 237), width=1)
+        img.paste(logo_resized, (80, 80), logo_resized)
+    else:
+        # Fallback de seguridad
+        draw.rounded_rectangle([80, 80, 144, 144], radius=14, fill=(124, 58, 237))
+        draw.text((95, 96), "RC", fill=(255, 255, 255), font=font_logo)
     
     # Etiqueta de especialidad superior
     draw.text((164, 94), "RICARDO CARDENAS", fill=(255, 255, 255), font=font_sub)

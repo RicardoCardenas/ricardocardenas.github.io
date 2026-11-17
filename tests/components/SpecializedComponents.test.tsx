@@ -16,6 +16,13 @@ describe('Specialized UI Components', () => {
     expect(screen.getByLabelText('Ricardo Cardenas')).toBeInTheDocument();
   });
 
+  it('renderiza Avatar con imagen de logo oficial', () => {
+    render(<Avatar src="/images/brand/logo-96.webp" alt="Ricardo Cardenas" />);
+    const img = screen.getByRole('img', { name: 'Ricardo Cardenas' });
+    expect(img).toBeInTheDocument();
+    expect(img).toHaveAttribute('src', '/images/brand/logo-96.webp');
+  });
+
   it('renderiza SectionHeader con badge, título y descripción', () => {
     render(
       <SectionHeader

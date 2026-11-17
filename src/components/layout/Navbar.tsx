@@ -34,13 +34,20 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-40 w-full backdrop-blur-md bg-background/85 border-b border-border/60 transition-colors duration-200">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-        {/* Logo Monograma Minimalista */}
+        {/* Logo de Identidad Visual */}
         <Link
           to="/"
-          className="flex items-center gap-2 group cursor-pointer focus-visible:outline-2 focus-visible:outline-focus rounded-md"
+          className="flex items-center gap-2.5 group cursor-pointer focus-visible:outline-2 focus-visible:outline-focus rounded-md"
         >
-          <div className="w-8 h-8 rounded-lg bg-primary/10 border border-primary/30 flex items-center justify-center text-primary font-bold text-sm tracking-tight group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-200">
-            RC
+          <div className="w-8 h-8 rounded-lg bg-surface-elevated/90 border border-primary/30 flex items-center justify-center p-0.5 group-hover:border-primary group-hover:shadow-xs transition-all duration-200 overflow-hidden shrink-0">
+            <img
+              src="/images/brand/logo-48.webp"
+              alt="Ricardo Cardenas"
+              width={28}
+              height={28}
+              className="w-full h-full object-contain"
+              loading="eager"
+            />
           </div>
           <span className="font-semibold text-sm tracking-tight text-text-primary hidden sm:inline-block">
             Ricardo Cardenas

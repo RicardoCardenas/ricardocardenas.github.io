@@ -39,9 +39,20 @@ export function MobileNavSheet({ navLinks }: MobileNavSheetProps) {
         <Dialog.Content className="fixed inset-y-0 right-0 z-50 w-full max-w-xs bg-surface-elevated p-6 shadow-xl border-l border-border flex flex-col justify-between animate-in slide-in-from-right duration-200">
           <div>
             <div className="flex items-center justify-between pb-4 border-b border-border">
-              <Dialog.Title className="font-bold text-sm tracking-tight text-primary">
-                Ricardo Cardenas
-              </Dialog.Title>
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-lg bg-surface-elevated/90 border border-primary/30 flex items-center justify-center p-0.5 overflow-hidden shrink-0">
+                  <img
+                    src="/images/brand/logo-48.webp"
+                    alt="Ricardo Cardenas"
+                    width={24}
+                    height={24}
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+                <Dialog.Title className="font-bold text-sm tracking-tight text-text-primary">
+                  Ricardo Cardenas
+                </Dialog.Title>
+              </div>
               <Dialog.Description className="sr-only">
                 {lang === 'es' ? 'Menú de navegación principal' : 'Main navigation menu'}
               </Dialog.Description>

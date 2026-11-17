@@ -36,13 +36,13 @@ export function HeroSection({ lang }: HeroSectionProps) {
             </Badge>
           </div>
 
-          {/* 2. Bloque Principal: Avatar Monograma + Nombre Destacado y Especialidad */}
+          {/* 2. Bloque Principal: Identidad Visual + Nombre Destacado y Especialidad */}
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 sm:gap-6">
             <Avatar
               size="xl"
-              initials="RC"
+              src="/images/brand/logo-96.webp"
               alt={verifiedProfile.fullName}
-              className="shrink-0 h-20 w-20 sm:h-24 sm:w-24 text-xl sm:text-2xl font-bold ring-2 ring-primary/20 shadow-xs"
+              className="shrink-0 h-20 w-20 sm:h-24 sm:w-24 ring-2 ring-primary/25 shadow-xs p-1.5 bg-surface-elevated"
             />
 
             <div className="space-y-1">
