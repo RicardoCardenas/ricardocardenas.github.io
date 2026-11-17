@@ -1,0 +1,6 @@
+# Robots.txt — Portafolio Profesional Ricardo Cardenas
+User-agent: *
+Allow: /
+
+# Sitemap XML canónico
+Sitemap: http://localhost:4173/sitemap.xml

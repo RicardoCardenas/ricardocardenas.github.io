@@ -126,9 +126,9 @@ export function ProjectGallery({ images, title, lang }: ProjectGalleryProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-text-primary">
         <ImageIcon className="h-5 w-5 text-primary" />
-        <h3 className="text-lg font-bold">
+        <h2 className="text-lg font-bold">
           {lang === 'es' ? 'Evidencia Visual & Capturas Reales' : 'Visual Evidence & Real Screenshots'}
-        </h3>
+        </h2>
       </div>
 
       <div className={`grid grid-cols-1 ${images.length > 1 ? 'sm:grid-cols-2 lg:grid-cols-3' : ''} gap-4`}>

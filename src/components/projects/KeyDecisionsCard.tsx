@@ -14,9 +14,9 @@ export function KeyDecisionsCard({ decisions, lang }: KeyDecisionsCardProps) {
     <div className="space-y-4">
       <div className="flex items-center gap-2 text-text-primary">
         <GitCommit className="h-5 w-5 text-primary" />
-        <h3 className="text-lg font-bold">
+        <h2 className="text-lg font-bold">
           {lang === 'es' ? 'Decisiones de Arquitectura & Trade-Offs (ADRs)' : 'Architecture Decisions & Trade-Offs (ADRs)'}
-        </h3>
+        </h2>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

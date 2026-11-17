@@ -10,6 +10,8 @@ import { MetricsBanner } from '../components/projects/MetricsBanner';
 import { KeyDecisionsCard } from '../components/projects/KeyDecisionsCard';
 import { ProjectGallery } from '../components/projects/ProjectGallery';
 import { ProjectCoverGraphic } from '../components/projects/ProjectCoverGraphic';
+import { SEOHead } from '../components/seo/SEOHead';
+import { getProjectDetailSEO, getProjectDetailSchema } from '../config/seo';
 import {
   ArrowLeft,
   ExternalLink,
@@ -42,8 +44,13 @@ export function ProjectDetailPage() {
     ? `/projects?${location.state.fromQuery}`
     : '/projects';
 
+  const seo = getProjectDetailSEO(project, lang);
+  const jsonLd = getProjectDetailSchema(project);
+
   return (
     <div className="py-8 sm:py-12 max-w-6xl mx-auto px-4 sm:px-6 space-y-10">
+      <SEOHead {...seo} jsonLd={jsonLd} />
+
       {/* 1. Breadcrumbs Semánticos */}
       <nav className="flex items-center gap-2 text-xs text-text-muted" aria-label="Breadcrumb">
         <Link to="/" className="hover:text-text-primary transition-colors flex items-center gap-1 cursor-pointer">
@@ -157,7 +164,7 @@ export function ProjectDetailPage() {
         <CardHeader className="space-y-1">
           <div className="flex items-center gap-2 text-primary">
             <Layers className="h-5 w-5" />
-            <CardTitle className="text-base sm:text-lg">
+            <CardTitle as="h2" className="text-base sm:text-lg">
               {lang === 'es' ? 'Rol y Contribución Personal Confirmada' : 'Role & Confirmed Personal Contributions'}
             </CardTitle>
           </div>
@@ -297,9 +304,9 @@ export function ProjectDetailPage() {
       <div className="space-y-3 pt-2">
         <div className="flex items-center gap-2 text-text-primary">
           <Sparkles className="h-4 w-4 text-primary" />
-          <h3 className="text-lg font-bold">
+          <h2 className="text-lg font-bold">
             {lang === 'es' ? 'Pila Tecnológica Verificada' : 'Verified Tech Stack'}
-          </h3>
+          </h2>
         </div>
         <div className="flex flex-wrap gap-2">
           {project.technologies.map((tech) => (
@@ -313,9 +320,9 @@ export function ProjectDetailPage() {
       {/* 13. Proyectos Relacionados para Navegación Cruzada */}
       {relatedProjects.length > 0 ? (
         <div className="space-y-4 pt-8 border-t border-border">
-          <h3 className="text-lg font-bold text-text-primary">
+          <h2 className="text-lg font-bold text-text-primary">
             {lang === 'es' ? 'Casos de Estudio Relacionados' : 'Related Case Studies'}
-          </h3>
+          </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             {relatedProjects.map((rel) => (
               <Card key={rel.id} interactive className="flex flex-col justify-between">

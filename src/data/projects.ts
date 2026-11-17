@@ -444,8 +444,8 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         'Synchronizing OpenAPI contracts between the Java backend and Vue 3 frontend to enforce bimonetary type consistency.',
       ],
     },
-    coverImage: '/images/projects/capital-cruise-db.png',
-    galleryImages: ['/images/projects/capital-cruise-db.png'],
+    coverImage: '/images/projects/capital-cruise-db.webp',
+    galleryImages: ['/images/projects/capital-cruise-db.webp'],
     technologies: [
       'Java 21',
       'Spring Boot 3.5',
@@ -620,11 +620,11 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'lib/core/security y GoRouter redirect guards',
       },
     ],
-    coverImage: '/images/projects/talestar-ar.png',
+    coverImage: '/images/projects/talestar-ar.webp',
     galleryImages: [
-      '/images/projects/talestar-ar.png',
-      '/images/projects/talestar-home.png',
-      '/images/projects/talestar-container.png',
+      '/images/projects/talestar-ar.webp',
+      '/images/projects/talestar-home.webp',
+      '/images/projects/talestar-container.webp',
     ],
     keyDecisions: [
       {
@@ -1047,10 +1047,10 @@ export const verifiedProjects: ProjectCaseStudy[] = [
         verifiedSource: 'BigQuery ML ML.FORECAST output',
       },
     ],
-    coverImage: '/images/projects/thelook-dashboard.png',
+    coverImage: '/images/projects/thelook-dashboard.webp',
     galleryImages: [
-      '/images/projects/thelook-dashboard.png',
-      '/images/projects/thelook-diagram-er.png',
+      '/images/projects/thelook-dashboard.webp',
+      '/images/projects/thelook-diagram-er.webp',
     ],
     keyDecisions: [
       {
@@ -1117,7 +1117,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
       es: 'Dashboard Ejecutivo Completado',
       en: 'Executive Dashboard Completed',
     },
-    coverImage: '/images/projects/churn-dashboard.png',
+    coverImage: '/images/projects/churn-dashboard.webp',
     summary: {
       es: 'Análisis exploratorio de datos, segmentación K-Means y cuantificación financiera del abandono de clientes en telecomunicaciones con Power BI.',
       en: 'Exploratory data analysis, K-Means customer segmentation, and financial churn impact quantification for telecom with Power BI.',
@@ -1256,7 +1256,7 @@ export const verifiedProjects: ProjectCaseStudy[] = [
       },
     ],
     galleryImages: [
-      '/images/projects/churn-dashboard.png',
+      '/images/projects/churn-dashboard.webp',
     ],
     keyDecisions: [
       {

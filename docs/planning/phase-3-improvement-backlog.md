@@ -2,15 +2,16 @@
 ## Usabilidad, Experiencia de Usuario y Refinamiento de Interfaces
 
 **Documento:** BACKLOG-FASE-3-001  
-**Versión:** 1.1.0  
+**Versión:** 1.3.0  
 **Fecha:** 16 de noviembre de 2026  
-**Origen:** Derivado de la Auditoría Heurística (Fase 3.1), Recorridos de Usuario, Revisión UX/UI (Fase 3.2) y Auditoría de Accesibilidad WCAG 2.2 AA (Fase 3.3)  
-**Estado:** ✅ **FASE 3.3 IMPLEMENTADA Y VERIFICADA (0 infracciones axe-core, 16 suites E2E, 8/8 pruebas de interacción y teclado)**  
+**Origen:** Derivado de la Auditoría Heurística (Fase 3.1), Recorridos de Usuario, Revisión UX/UI (Fase 3.2), Auditoría de Accesibilidad WCAG 2.2 AA (Fase 3.3) y Auditoría de Rendimiento & SEO (Fase 3.4)  
+**Estado:** ✅ **FASE 3.4 IMPLEMENTADA Y VERIFICADA (Lighthouse 100/100 Desktop en las 4 categorías, Perf Mobile 95-97, CLS 0.000, TBT <=108ms, SSG 11 rutas estáticas)**  
 
 > [!NOTE]
-> **Conciliación de alcance (Fase 3.2 y Fase 3.3):**
+> **Conciliación de alcance (Fases 3.2, 3.3 y 3.4):**
 > - La Fase 3.2 completó las 9 tareas de usabilidad (UX-01 a UX-08 y A11Y-01).
-> - La Fase 3.3 resolvió 8 barreras críticas de accesibilidad WCAG 2.2 AA (A11Y-02 a A11Y-09), incorporando la suite automatizada `@axe-core/playwright` y alcanzando plena conformidad sin infracciones residuales.
+> - La Fase 3.3 resolvió 8 barreras críticas de accesibilidad WCAG 2.2 AA (A11Y-02 a A11Y-09), alcanzando 0 infracciones axe-core.
+> - La Fase 3.4 completó las 6 tareas de optimización de rendimiento, Core Web Vitals y SEO Técnico (PERF-01 a PERF-03 y SEO-01 a SEO-03), logrando 100/100 en SEO, 100/100 en Accesibilidad, 100/100 en Rendimiento de escritorio y CLS 0.000.
 
 ---
 
@@ -48,6 +49,12 @@ El backlog consolida todos los hallazgos técnicos y de diseño obtenidos en la 
 | **A11Y-07** | **P2 (Media)** | 1 | `AppLayout.tsx` | Localización dinámica del enlace para saltar al contenido principal en español e inglés | ✅ **Completado** | Fase 3.3 (`accessibility-interaction.spec.ts`) |
 | **A11Y-08** | **P1 (Alta)** | 2 | `CVSection.tsx`, `ContactSection.tsx` | Eliminación de anidamiento interactivo inválido `<a ...><Button>...</a>` en favor de `buttonVariants` en `<a>` | ✅ **Completado** | Fase 3.3 (W3C HTML5 validator / axe-core) |
 | **A11Y-09** | **P2 (Media)** | 1 | `HeroArchitectureGraphic.tsx`, `ProjectCoverGraphic.tsx` | Declaración explícita de `role="img"` y `aria-label` descriptivo en diagramas e ilustraciones | ✅ **Completado** | Fase 3.3 (axe-core Scans) |
+| **PERF-01** | **P1 (Alta)** | 2 | `router.tsx`, `AppLayout.tsx` | Code-splitting y lazy loading a nivel de rutas (`React.lazy` + `Suspense`), reduciendo el bundle de entrada de 446 kB a 258 kB (-42%) | ✅ **Completado** | Fase 3.4 (Vite build & Playwright E2E) |
+| **PERF-02** | **P1 (Alta)** | 2 | `projects.ts`, `public/images/projects/` | Conversión y compresión de capturas gráficas a WebP (q85), reduciendo el peso de activos en 79.9% (1,463 KB a 294 KB) | ✅ **Completado** | Fase 3.4 (Script Python & Web Vitals) |
+| **PERF-03** | **P1 (Alta)** | 2 | `scripts/prerender.js`, `package.json` | Pipeline de Prerenderizado Estático (SSG) de 11 rutas conocidas en tiempo de build para FCP instantáneo y crawlability universal | ✅ **Completado** | Fase 3.4 (Build post-procesado & 11 rutas HTML) |
+| **SEO-01** | **P1 (Alta)** | 2 | `src/config/seo.ts`, `SEOHead.tsx` | Gestión centralizada de títulos bilingües, meta descripciones, canonicalización estricta y robots | ✅ **Completado** | Fase 3.4 (`seo-and-performance.spec.ts`) |
+| **SEO-02** | **P1 (Alta)** | 2 | `src/config/seo.ts` | Datos estructurados Schema.org JSON-LD (`Person`, `WebSite`, `CollectionPage`, `TechArticle`, `BreadcrumbList`) | ✅ **Completado** | Fase 3.4 (JSON-LD test & Schema validator) |
+| **SEO-03** | **P1 (Alta)** | 2 | `public/robots.txt`, `public/sitemap.xml`, `og-image.png` | Creación de directivas de rastreo, sitemap XML de 10 rutas públicas y tarjeta social Open Graph / Twitter Cards | ✅ **Completado** | Fase 3.4 (Lighthouse SEO 100/100) |
 
 ---
 
@@ -176,27 +183,55 @@ El backlog consolida todos los hallazgos técnicos y de diseño obtenidos en la 
 ```mermaid
 flowchart TD
     subgraph FASE_3_2["Fase 3.2: Refinamiento UX/UI e Interacciones (COMPLETADO)"]
-        UX01["UX-01: Filtros Catálogo en URL & Retorno Preservado ✅"]
-        UX02["UX-02: Scroll Spy Navbar con IntersectionObserver ✅"]
-        UX03["UX-03: active:scale-[0.98] en Botones ✅"]
-        UX04["UX-04: Claridad CTA CV Software y Acceso Data & AI ✅"]
-        UX05["UX-05: Elevación sutil hover en Tarjetas ✅"]
-        UX06["UX-06: Feedback táctil en Menú Móvil ✅"]
-        UX07["UX-07: Atajo '/' para Búsqueda ✅"]
-        UX08["UX-08: Badges en móvil ultra-angosto 320px ✅"]
-        A11Y01["A11Y-01: prefers-reduced-motion preventivo ✅"]
+        UX01["UX-01 a UX-08 + A11Y-01: Usabilidad, Ergonomía & Reduced Motion ✅"]
     end
 
     subgraph FASE_3_3["Fase 3.3: Auditoría y Refinamiento WCAG 2.2 AA (COMPLETADO)"]
-        A11Y_AUDIT["A11Y-02 a 09: Contraste, Focus Trapping, Teclado, Label-in-Name & axe-core ✅"]
+        A11Y_AUDIT["A11Y-02 a A11Y-09: Contraste, Focus, Teclado, Label-in-Name & axe-core ✅"]
     end
 
-    subgraph FASE_3_4["Fase 3.4: Optimización de Rendimiento y Core Web Vitals (PENDIENTE)"]
-        PERF_AUDIT["Auditoría Lighthouse, LCP, INP, CLS y compresión de assets"]
+    subgraph FASE_3_4["Fase 3.4: Rendimiento, Core Web Vitals & SEO Técnico (COMPLETADO)"]
+        PERF_AUDIT["PERF-01 a 03 & SEO-01 a 03: Code-splitting, WebP, SSG 11 rutas, SEO 100/100, CLS 0.000 ✅"]
+    end
+
+    subgraph FASE_3_5["Fase 3.5: Validación Integral de Preproducción (EN EJECUCIÓN)"]
+        PREPROD["Validación consolidada, Quality Gate integral, LCP móvil & preparación para despliegue"]
     end
 
     FASE_3_2 --> FASE_3_3
     FASE_3_3 --> FASE_3_4
+    FASE_3_4 --> FASE_3_5
 ```
 
-Todas las mejoras de usabilidad (Fase 3.2) y refinamiento de accesibilidad WCAG 2.2 AA (Fase 3.3) han sido implementadas, integradas y verificadas con éxito en el Quality Gate técnico (TypeScript, ESLint, Vitest y 100% pruebas Playwright E2E aprobadas en escritorio y móvil).
+---
+
+## 5. Registro de Pendientes Técnicos y Requisitos para Despliegue (Fase 3.5 y Fase 4)
+
+Los siguientes aspectos quedan formalmente documentados como pendientes y requisitos de publicación:
+
+### 5.1. LCP en Dispositivos Móviles (Pendiente de Optimización en Fase 3.5)
+- **Valores Registrados en Auditoría de Fase 3.4 (Lighthouse Mobile):**
+  - Home: **2.621 s**
+  - Catálogo: **2.754 s**
+  - Nexo: **2.601 s**
+- **Umbral Orientativo de Google ("Bueno"):** $\le 2.500$ ms.
+- **Estado:** Se reconoce con rigor técnico que, si bien el TBT móvil cayó en más del 92% ($\le 108$ ms) y el CLS es perfecto (0.000), el LCP móvil se ubica ligeramente por encima del umbral de buena experiencia ($\approx 2.6 - 2.7$ s) bajo simulación de CPU estrangulada y red 4G lenta.
+- **Acción en Fase 3.5:** Repetir mediciones bajo condiciones controladas e investigar pequeñas mejoras justificadas (ej. carga prioritaria de fuentes, priorización de recursos críticos) sin comprometer la estabilidad ni añadir complejidad innecesaria.
+
+### 5.2. Dominio Canónico de Producción (Requisito de Publicación en Fase 4)
+- **Estado Actual:** El dominio definitivo aún **no ha sido confirmado** por el usuario. La aplicación opera con una arquitectura totalmente desacoplada mediante `getSiteUrl()`, utilizando `http://localhost:4173` como origen local predeterminado de pruebas.
+- **Requisitos Obligatorios para Publicación:**
+  1. El usuario confirmará el dominio HTTPS aprobado.
+  2. Inyectar `VITE_SITE_URL=https://<dominio-aprobado>` en el entorno de build de la plataforma de hosting.
+  3. Ejecutar `npm run build` para generar dinámicamente `sitemap.xml`, `robots.txt`, etiquetas canonicals y metadatos JSON-LD.
+  4. Verificar que ningún activo de producción haga referencia a `localhost`.
+  5. **Restricción:** No seleccionar, inferir ni adquirir dominios de manera automatizada.
+
+### 5.3. Códigos de Estado HTTP y Comportamiento de Hosting (Requisito de Hosting en Fase 4)
+- **Estado Actual:** En servidor local `vite preview`, el fallback SPA emite HTTP 200 mientras React Router renderiza la vista 404 con `<meta name="robots" content="noindex, nofollow">` (evitando indexación). Se generó el archivo estático `dist/404.html`.
+- **Requisitos Obligatorios para Hosting en Producción:**
+  1. Rutas existentes deben responder con código **HTTP 200 OK**.
+  2. Rutas no existentes deben responder con código real **HTTP 404 Not Found** sirviendo `404.html` (evitando soft 404).
+  3. Página 404 debe preservar la directiva `noindex, nofollow` y estar excluida del sitemap.
+- **Estado de Aceptación:** Este criterio queda clasificado como **PENDIENTE DE CONFIGURACIÓN DE HOSTING (Fase 4)**. No se marcará como PASS de producción hasta ser comprobado en el servidor final.
+

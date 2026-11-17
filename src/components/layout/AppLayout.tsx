@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet, ScrollRestoration } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { Navbar } from './Navbar';
@@ -23,7 +24,15 @@ export function AppLayout() {
       <Navbar />
 
       <main id="main-content" className="flex-1">
-        <Outlet />
+        <Suspense
+          fallback={
+            <div className="min-h-screen flex items-center justify-center p-8" aria-busy="true" aria-label="Cargando contenido">
+              <div className="h-6 w-6 rounded-full border-2 border-primary/30 border-t-primary animate-spin" />
+            </div>
+          }
+        >
+          <Outlet />
+        </Suspense>
       </main>
 
       <Footer />

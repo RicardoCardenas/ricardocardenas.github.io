@@ -46,9 +46,9 @@ export function ArchitectureDiagram({
       <div className="space-y-3">
         <div className="flex items-center gap-2 text-text-primary">
           <Network className="h-5 w-5 text-primary" />
-          <h3 className="text-lg font-bold">
+          <h2 className="text-lg font-bold">
             {lang === 'es' ? 'Arquitectura del Sistema & Diagrama de Componentes' : 'System Architecture & Component Diagram'}
-          </h3>
+          </h2>
         </div>
         <p className="text-sm text-text-secondary leading-relaxed">
           {overview}
@@ -353,9 +353,9 @@ export function ArchitectureDiagram({
 
         {/* Lista Detallada de Componentes de la Arquitectura */}
         <div className="pt-4 border-t border-border/60">
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-3">
+          <h3 className="text-xs font-semibold uppercase tracking-wider text-text-muted mb-3">
             {lang === 'es' ? 'Componentes y Módulos de la Arquitectura' : 'Architecture Modules & Components'}
-          </h4>
+          </h3>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {components.map((comp, idx) => (

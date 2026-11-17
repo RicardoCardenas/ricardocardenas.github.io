@@ -29,11 +29,15 @@ export function CardHeader({ className, children, ...props }: React.HTMLAttribut
   );
 }
 
-export function CardTitle({ className, children, ...props }: React.HTMLAttributes<HTMLHeadingElement>) {
+export interface CardTitleProps extends React.HTMLAttributes<HTMLHeadingElement> {
+  as?: 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'div';
+}
+
+export function CardTitle({ as: Comp = 'h3', className, children, ...props }: CardTitleProps) {
   return (
-    <h3 className={cn('text-lg font-semibold tracking-tight text-text-primary', className)} {...props}>
+    <Comp className={cn('text-lg font-semibold tracking-tight text-text-primary', className)} {...props}>
       {children}
-    </h3>
+    </Comp>
   );
 }
 

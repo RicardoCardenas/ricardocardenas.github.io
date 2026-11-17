@@ -172,7 +172,7 @@ test.describe('Fase 2B: Catálogo de Proyectos & Estudios de Caso', () => {
     await expect(page.getByText(/tests automatizados|automated tests/i).first()).toBeVisible();
 
     // Galería visual con imágenes de ARCore
-    const galleryImage = page.locator('img[src*="talestar-ar.png"]').first();
+    const galleryImage = page.locator('img[src*="talestar-ar"]').first();
     await expect(galleryImage).toBeVisible();
 
     // Arquitectura y decisiones

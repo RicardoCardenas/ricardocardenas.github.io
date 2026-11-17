@@ -1,0 +1,53 @@
+[
+  {
+    "route": "Capital Cruise",
+    "viewport": "mobile",
+    "ttfb": 4.699999988079071,
+    "fcp": 128,
+    "lcp": 500,
+    "cls": 0,
+    "domContentLoaded": 141.80000001192093,
+    "loadDuration": 145.39999997615814,
+    "totalTransferredBytes": 303211,
+    "requestCount": 13,
+    "jsTransferredBytes": 228075,
+    "cssTransferredBytes": 11526,
+    "imgTransferredBytes": 63610,
+    "longTaskCount": 0,
+    "totalBlockingDuration": 0
+  },
+  {
+    "route": "TaleStar",
+    "viewport": "mobile",
+    "ttfb": 5.399999976158142,
+    "fcp": 132,
+    "lcp": 484,
+    "cls": 0,
+    "domContentLoaded": 143.30000001192093,
+    "loadDuration": 147.89999997615814,
+    "totalTransferredBytes": 254735,
+    "requestCount": 13,
+    "jsTransferredBytes": 228075,
+    "cssTransferredBytes": 11526,
+    "imgTransferredBytes": 15134,
+    "longTaskCount": 0,
+    "totalBlockingDuration": 0
+  },
+  {
+    "route": "TheLook",
+    "viewport": "mobile",
+    "ttfb": 9.300000011920929,
+    "fcp": 128,
+    "lcp": 488,
+    "cls": 0,
+    "domContentLoaded": 141.5,
+    "loadDuration": 144.69999998807907,
+    "totalTransferredBytes": 286873,
+    "requestCount": 13,
+    "jsTransferredBytes": 228075,
+    "cssTransferredBytes": 11526,
+    "imgTransferredBytes": 47272,
+    "longTaskCount": 0,
+    "totalBlockingDuration": 0
+  }
+]

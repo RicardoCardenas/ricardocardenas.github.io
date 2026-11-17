@@ -8,6 +8,8 @@ import { Button, buttonVariants } from '../components/ui/Button';
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from '../components/ui/Card';
 import { EmptyState } from '../components/ui/EmptyState';
 import { ProjectCoverGraphic } from '../components/projects/ProjectCoverGraphic';
+import { SEOHead } from '../components/seo/SEOHead';
+import { getCatalogSEO, getCollectionPageSchema } from '../config/seo';
 import { Search, ExternalLink, ShieldCheck, ArrowLeft, ArrowRight, X, Sparkles } from 'lucide-react';
 
 const VALID_CATEGORIES: (ProjectCategory | 'all')[] = [
@@ -109,8 +111,13 @@ export function ProjectsCatalogPage() {
     };
   }, []);
 
+  const seo = getCatalogSEO(lang);
+  const jsonLd = getCollectionPageSchema(verifiedProjects);
+
   return (
     <div className="py-8 sm:py-12 max-w-6xl mx-auto px-4 sm:px-6 space-y-8">
+      <SEOHead {...seo} jsonLd={jsonLd} />
+
       {/* Breadcrumbs */}
       <nav className="flex items-center gap-2 text-xs text-text-muted" aria-label="Breadcrumb">
         <Link to="/" className="hover:text-text-primary transition-colors flex items-center gap-1">
@@ -237,7 +244,10 @@ export function ProjectsCatalogPage() {
         ) : null}
       </div>
 
-      {/* Grilla de Tarjetas de Proyectos */}
+      {/* Grilla de Tarjetas de Proyectos con Encabezado Semántico */}
+      <h2 className="sr-only">
+        {lang === 'es' ? 'Listado de proyectos y estudios de caso técnicos' : 'Technical projects and case studies list'}
+      </h2>
       {filteredProjects.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredProjects.map((project) => (

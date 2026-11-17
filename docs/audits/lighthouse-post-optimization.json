@@ -1,0 +1,98 @@
+{
+  "Home": {
+    "desktop": {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 265.50865,
+        "lcp": 617.0173,
+        "cls": 0,
+        "tbt": 0,
+        "speedIndex": 363.1298371384311
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 1009.5148000000002,
+        "lcp": 2621.0296,
+        "cls": 0,
+        "tbt": 99.99999999999977,
+        "speedIndex": 1187.6659179765736
+      }
+    }
+  },
+  "Catálogo": {
+    "desktop": {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 213.4121,
+        "lcp": 584.4121,
+        "cls": 0,
+        "tbt": 0,
+        "speedIndex": 374.6537421707957
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 766.6478,
+        "lcp": 2754.6478000000006,
+        "cls": 0,
+        "tbt": 108.67610000000002,
+        "speedIndex": 1171.5596713078894
+      }
+    }
+  },
+  "Nexo": {
+    "desktop": {
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 227.4909,
+        "lcp": 543.9818000000001,
+        "cls": 0,
+        "tbt": 0,
+        "speedIndex": 401.5207957167725
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 97,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 100
+      },
+      "metrics": {
+        "fcp": 826.25045,
+        "lcp": 2601.5009,
+        "cls": 0,
+        "tbt": 15,
+        "speedIndex": 1037.8746495422663
+      }
+    }
+  }
+}

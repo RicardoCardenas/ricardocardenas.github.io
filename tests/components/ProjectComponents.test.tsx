@@ -133,7 +133,7 @@ describe('Project Detail Specialized Components', () => {
     render(<ProjectCoverGraphic project={ccProject} lang="es" variant="card" />);
 
     const img = screen.getByRole('img');
-    expect(img).toHaveAttribute('src', '/images/projects/capital-cruise-db.png');
+    expect(img.getAttribute('src')).toMatch(/\/images\/projects\/capital-cruise-db\.(webp|png)/);
     expect(screen.getByText(/Esquema de BD Relacional/i)).toBeInTheDocument();
     expect(screen.getByText(/Captura Real Verificada/i)).toBeInTheDocument();
   });

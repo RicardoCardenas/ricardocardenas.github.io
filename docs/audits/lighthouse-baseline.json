@@ -1,0 +1,98 @@
+{
+  "Home": {
+    "desktop": {
+      "scores": {
+        "performance": 89,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 92
+      },
+      "metrics": {
+        "fcp": 285.1934,
+        "lcp": 285.1934,
+        "cls": 0,
+        "tbt": 273.5,
+        "speedIndex": 682.0795161371557
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 74,
+        "accessibility": 100,
+        "bestPractices": 100,
+        "seo": 92
+      },
+      "metrics": {
+        "fcp": 809.3469,
+        "lcp": 809.3469,
+        "cls": 0,
+        "tbt": 1626.82655,
+        "speedIndex": 1534.8806319850726
+      }
+    }
+  },
+  "Catálogo": {
+    "desktop": {
+      "scores": {
+        "performance": 96,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 92
+      },
+      "metrics": {
+        "fcp": 264.80740000000003,
+        "lcp": 851.5092500000001,
+        "cls": 0,
+        "tbt": 148.99999999999994,
+        "speedIndex": 557.7973982929989
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 75,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 92
+      },
+      "metrics": {
+        "fcp": 805.796,
+        "lcp": 805.796,
+        "cls": 0,
+        "tbt": 1326.102,
+        "speedIndex": 1862.8638299910547
+      }
+    }
+  },
+  "Nexo": {
+    "desktop": {
+      "scores": {
+        "performance": 85,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 91
+      },
+      "metrics": {
+        "fcp": 293.9977,
+        "lcp": 293.9977,
+        "cls": 0,
+        "tbt": 341.99999999999994,
+        "speedIndex": 728.160797715181
+      }
+    },
+    "mobile": {
+      "scores": {
+        "performance": 81,
+        "accessibility": 98,
+        "bestPractices": 100,
+        "seo": 91
+      },
+      "metrics": {
+        "fcp": 1534.2269000000001,
+        "lcp": 1534.2269000000001,
+        "cls": 0,
+        "tbt": 755,
+        "speedIndex": 1534.2269000000001
+      }
+    }
+  }
+}

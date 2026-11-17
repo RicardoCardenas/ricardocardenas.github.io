@@ -6,13 +6,19 @@ import { FeaturedProjectsSection } from '../components/sections/FeaturedProjects
 import { EducationSection } from '../components/sections/EducationSection';
 import { CVSection } from '../components/sections/CVSection';
 import { ContactSection } from '../components/sections/ContactSection';
+import { SEOHead } from '../components/seo/SEOHead';
+import { getHomeSEO, getPersonAndWebSiteSchema } from '../config/seo';
 
 export function HomePage() {
   const { i18n } = useTranslation('common');
   const lang = i18n.language && i18n.language.startsWith('en') ? 'en' : 'es';
+  const seo = getHomeSEO(lang);
+  const jsonLd = getPersonAndWebSiteSchema();
 
   return (
     <div className="py-8 sm:py-12 space-y-20 sm:space-y-28 max-w-5xl mx-auto px-4 sm:px-6">
+      <SEOHead {...seo} jsonLd={jsonLd} />
+
       {/* 1. SECCIÓN HERO / PRESENTACIÓN */}
       <HeroSection lang={lang} />
 
