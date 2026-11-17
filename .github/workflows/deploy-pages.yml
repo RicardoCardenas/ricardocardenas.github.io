@@ -1,0 +1,80 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+# Minimal permissions required for GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Concurrency group for GitHub Pages deployments
+concurrency:
+  group: 'pages'
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build & Quality Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: TypeScript Quality Gate
+        run: npm run typecheck
+
+      - name: ESLint Quality Gate
+        run: npm run lint
+
+      - name: Unit & Component Tests (Vitest)
+        run: npm run test
+
+      - name: Install Playwright Chromium & dependencies
+        run: npx playwright install --with-deps chromium
+
+      - name: End-to-End & Preproduction Validation (Playwright)
+        run: npx playwright test --reporter=list --workers=2
+
+      - name: Build & Static Site Generation (SSG)
+        env:
+          VITE_SITE_URL: "https://${{ github.repository_owner }}.github.io"
+        run: npm run build
+
+      - name: Validate Production Distribution Integrity
+        env:
+          VITE_SITE_URL: "https://${{ github.repository_owner }}.github.io"
+        run: npm run validate:dist
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload GitHub Pages Artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './dist'
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
